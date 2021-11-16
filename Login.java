@@ -31,9 +31,24 @@ public class Login {
 
             // The file is comma separated and has 4 fields username, psswd, name, balance
             words = str.split(",");
-            if (words[0].equals(login[0]) && words[1].equals(login[1])) {
-                count++;
-                break;
+            
+            // Username matches with an entry
+            if (words[0].equals(login[0])) {
+
+                // Password matches
+                if(words[1].equals(login[1])){
+
+                    count = 2;
+                    break;
+
+                }
+
+                else{
+
+                    count = 1;
+                    break;
+                }
+                
             }
 
         }
@@ -41,7 +56,7 @@ public class Login {
         br1.close();  // Close reader object
 
         // Login successful
-        if (count == 1) {
+        if (count == 2) {
 
             System.out.println("Login Successful!");
 
@@ -54,9 +69,21 @@ public class Login {
         } 
         
         // Login failed
-        else {
-            System.out.println("Login Failed, Please Enter your password/username again");
-            LOG_IN();
+        else if(count == 1){
+            System.out.println("Login Failed!.....");
+            String ch = cnsl.readLine("Do you want to continue or exit? Enter C to continue E to exit : ").strip();
+
+            if(ch == "C")
+                LOG_IN();
+            
+            else if(ch == "E")
+                System.exit(0);
+        }
+
+        // User doesn't exist
+        else{
+            System.out.println("User doesn't exist! Please Sign Up.");
+            Main.go_to_login_page();
         }
         fr.close();
 
@@ -98,8 +125,8 @@ public class Login {
         else {
 
             System.out.println("Enter your details again, Existing username already exists !");
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            // System.out.print("\033[H\033[2J");
+            // System.out.flush();
             Main.go_to_login_page();
 
         }

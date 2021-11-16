@@ -33,9 +33,6 @@ public class Main {
 
     public static void main(String[] args) throws Exception{
 
-        // Login welcome = new Login();
-        // String[] arg1 = new String[2];
-
         System.out.println("*********************************************************************************");
         System.out.println("WELCOME TO AIRLINE RESERVATION SYSTEM !\n");
         System.out.println("Press L to Login or Press S to Sign up");
