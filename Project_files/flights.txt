@@ -1,0 +1,10 @@
+SpiceJet,SG 0001,Delhi,Chennai,2500,true
+SpiceJet,SG 0002,Delhi,Bhubaneshwar,1500,true
+Indigo,6E 0001,Delhi,Kolkata,2000,true
+Indigo,6E 0002,Delhi,Chandigarh,2500,true
+AirIndia,AI 0001,Mumbai,Chennai,1000,true
+AirIndia,AI 0002,Mumbai,Bhubaneshwar,1500,true
+GoAir,G8 0001,Chennai,Pune,1500,true
+GoAir,G8 0002,Chennai,Bhubaneshwar,1500,true
+Vistara,UK 0001,Hyderabad,Delhi,3000,true
+Vistara,UK 0002,Hyderabad,Bhubaneshwar,2500,true
