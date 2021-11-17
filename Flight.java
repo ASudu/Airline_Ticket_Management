@@ -29,7 +29,7 @@ public class Flight{
     // Default constructor
     public Flight() {
 
-        this.from = City.home_city; // Implement City class
+        // this.from = City.home_city; // Implement City class
         this.customers_booked = 0;
         this.free_seats = total_seats;
         this.flight_status = "true";
