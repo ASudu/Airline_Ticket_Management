@@ -1,4 +1,6 @@
 // import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.*;
@@ -14,15 +16,15 @@ public class City {
     // temp.add_City("Delhi", new Point(0,0));
     static Map<Object, Object> cities = Stream.of(new Object[][] { 
         { "Delhi", new Point(0,0) }, 
-        { "Mumbai", new Point(-20,-40) },
-        { "Kolkata", new Point(20,-30)},
-        { "Bhubaneshwar", new Point(15,-35)},
-        { "Chennai", new Point(10,-50)},
-        { "Jharkhand", new Point(10,-30)},
-        { "Nagpur", new Point(-15,-40)},
-        { "Srinagar", new Point(0,5)},
-        { "Bhopal", new Point(0,-20)},
-        { "Gangtok", new Point(5,0)}
+        { "Mumbai", new Point(-2000,-4000) },
+        { "Kolkata", new Point(2000,-3000)},
+        { "Bhubaneshwar", new Point(1500,-3500)},
+        { "Chennai", new Point(1000,-5000)},
+        { "Jharkhand", new Point(1000,-3000)},
+        { "Nagpur", new Point(-1500,-4000)},
+        { "Srinagar", new Point(0,500)},
+        { "Bhopal", new Point(0,-2000)},
+        { "Gangtok", new Point(500,0)}
     }).collect(Collectors.collectingAndThen(
         Collectors.toMap(data -> data[0], data -> data[1]), 
         Collections::<Object, Object> unmodifiableMap));
@@ -63,7 +65,7 @@ public class City {
                 i++;
             }
 
-            for(int k=0;k<arr.length;i++){
+            for(int k=0;k<arr.length;k++){
                 for (int j=k+1;j<arr.length;j++ ){
                     pw.write(arr[k]+","+arr[j]+","+Integer.toString(this.cal_dist(arr[k], arr[j]))+"\n");
                 }
@@ -78,6 +80,37 @@ public class City {
         }
 
 
+    }
+
+    public void display_list_of_cities(){
+
+        BufferedReader br = null;
+
+        try{
+
+            FileReader fr = new FileReader("cities.txt");
+            br = new BufferedReader(fr);
+
+            String[] display = new String[3];
+            String str;
+
+            System.out.println("-------------------------");
+            System.out.println("From           To");
+            System.out.println("-------------------------");
+            while((str = br.readLine()) != null){
+                display = str.split(",");
+                String space = "";
+                for(int i=0;i<13-display[0].length(); i++)
+                    space += " ";   
+                System.out.println(display[0]+ space + "|" + display[1]);
+            }
+            System.out.println("-------------------------");
+
+            br.close();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
     }
     
     
@@ -105,6 +138,7 @@ class Point extends Object{
  class Driver{
      public static void main(String[] args){
          City c = new City();
-         c.construct_file();
+        //  c.construct_file();
+        c.display_list_of_cities();
      }
  }
