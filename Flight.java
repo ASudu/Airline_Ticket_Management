@@ -137,11 +137,13 @@ public class Flight{
    
 }
 
+// For keeping track of bookings, create txt file for each airline and save flight code, seat number and customer name(username)
+// For assigning seat
 class Airline{
 
     HashSet<Flight>  flights =  new HashSet<Flight>(); // a set consisting of flights under the airlines
     HashSet<String>  places =  new HashSet<String>(); // list of cities or that airline is connected to
-    ArrayList<Staff> staffs = new HashSet<Staff>(); // List of employed staffs (Implement Staff class)
+    ArrayList<Staff> staffs = new ArrayList<Staff>(); // List of employed staffs (Implement Staff class)
     String flights_file = "flights.txt";
     BufferedReader br = null;
 
