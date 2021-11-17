@@ -16,6 +16,7 @@ This is the repo for the course project in CS F213: Object Oriented Programming,
 - https://docs.oracle.com/javase/tutorial/uiswing/components/passwordfield.html
 - https://gist.github.com/gkhays/2bebe536259344779518
 - https://stackoverflow.com/questions/8138411/masking-password-input-from-the-console-java
+- https://www.hierarchystructure.com/hierarchy-of-airline-company/
 
 ## Authors
 

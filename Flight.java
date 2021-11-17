@@ -20,7 +20,8 @@ public class Flight{
     private int fare; // read and write
     private String flight_code;  // read only
     private String Airline;  // read only
-    private HashSet<Customer>  customers_booked; // read and write
+    // private HashSet<Customer>  customers_booked; // read and write
+    private int customers_booked;
     private int free_seats; // read only
     private String flight_status; //  read and write ; true if functional else false
 
@@ -29,7 +30,7 @@ public class Flight{
     public Flight() {
 
         this.from = City.home_city; // Implement City class
-        this.customers_booked = new HashSet<>();
+        this.customers_booked = 0;
         this.free_seats = total_seats;
         this.flight_status = "true";
 
@@ -44,7 +45,7 @@ public class Flight{
         this.fare = fare;
         this.flight_code = flight_code;
         this.Airline = Airline;
-        this.customers_booked = new HashSet<Customer>();
+        this.customers_booked = 0;
         this.free_seats = total_seats;
         this.flight_status = "true";
     }
@@ -88,7 +89,7 @@ public class Flight{
         return this.Airline;
     }
 
-    public HashSet<Customer> getCustomers_booked() {
+    public int getCustomers_booked() {
         return this.customers_booked;
     }
 
@@ -97,9 +98,9 @@ public class Flight{
     //     this.customers_booked = customers_booked;
     // }
 
-    public void update_Customers_booked(Customer c) {
-        this.customers_booked.add(c);
-    }
+    // public void update_Customers_booked(Customer c) {
+    //     this.customers_booked.add(c);
+    // }
 
     public int getFree_seats() {
         return this.free_seats;
@@ -114,7 +115,7 @@ public class Flight{
     // }
     //------------------------------------------------------------------------------------------------------------//
 
-    public void update_flights(String airline, String code, String from, String to, String fare, String status) throws Exception{
+    public void update_flights(String airline, String code, String from, String to, String fare, String free_seats,String status) throws Exception{
 
         // First find the flight by flight_code :(unique identity)
         Path path = Paths.get(current_dir + "flights.txt");
@@ -123,9 +124,9 @@ public class Flight{
 
         for (int i = 0; i < fileContent.size(); i++) {
 
-            if (fileContent.get(i).equals(this.Airline+","+this.flight_code+","+this.from+","+this.to+","+Integer.toString(this.fare)+","+this.flight_status)) {
+            if (fileContent.get(i).equals(this.Airline+","+this.flight_code+","+this.from+","+this.to+","+Integer.toString(this.fare)+","+Integer.toString(this.free_seats)+","+flight_status)) {
 
-                fileContent.set(i, airline+","+code+","+from+","+to+","+fare+","+status);
+                fileContent.set(i, airline+","+code+","+from+","+to+","+fare+","+free_seats+","+status);
                 break;
 
             }
@@ -144,8 +145,10 @@ class Airline{
 
     HashSet<Flight>  flights =  new HashSet<Flight>(); // a set consisting of flights under the airlines
     HashSet<String>  places =  new HashSet<String>(); // list of cities or that airline is connected to
-    ArrayList<Staff> staffs = new HashSet<Staff>(); // List of employed staffs (Implement Staff class)
+    ArrayList<Staff> staffs = new ArrayList<Staff>(); // List of employed staffs (Implement Staff class)
+    HashMap<String,Integer> customers;
     String flights_file = "flights.txt";
+    BufferedWriter br1 = null;
     BufferedReader br = null;
 
 
@@ -154,12 +157,51 @@ class Airline{
         return this.flights;
     }
 
-    public void add_Flights(HashSet<Flight> flights) {
-        this.flights.addAll(flights);
+    // Only Sales Head of the Airline can add flights into the system
+    public void add_Flights(Staff s,HashSet<Flight> flights) {
+        if(s.designation.equals("Sales Head")){
+            this.flights.addAll(flights);
+
+            try {
+                FileWriter fr = new FileWriter(flights_file);
+                br1 = new BufferedWriter(fr);
+
+                for(Flight flight_obj : flights){
+
+
+                }
+
+
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+        }
+
+        else{
+            System.out.println("Only Sales Head can add flights!");
+        }
+        
     }
 
-    public void add_Flights(Flight flight) {
-        this.flights.add(flight);
+    // Only Sales Head of the Airline can add flights into the system
+    public void add_Flights(Staff s,Flight flight) {
+        if(s.designation.equals("Sales Head")){
+            this.flights.add(flight);
+
+            try {
+                FileWriter fr = new FileWriter(flights_file);
+                br1 = new BufferedWriter(fr);
+
+
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+        }
+
+        else{
+            System.out.println("Only Sales Head can add flights!");
+        }
+        
     }
 
     public HashSet<String> getPlaces() {
@@ -191,7 +233,7 @@ class Airline{
             // FileReader object to find the flight whose status needs to be updated
             FileReader fr = new FileReader(flights_file);
             br = new BufferedReader(fr);
-            String[] words = new String[6];
+            String[] words = new String[7];
 
             String str;
             int count = 0; // flag variable that indicate if flight found or not
@@ -199,7 +241,7 @@ class Airline{
             // Reading the file
             while ((str = br.readLine()) != null) {
 
-                // The file is comma separated and has 6 fields airline, flight code, from, to, fare, functional
+                // The file is comma separated and has 7 fields airline, flight code, from, to, fare, free_seats, functional
                 words = str.split(",");
                 if (words[1].equals(flight_code)) {
 
@@ -225,19 +267,23 @@ class Airline{
                 Flight to_update = new Flight(words[2], words[3], Integer.parseInt(words[4]), words[1], words[0]);
 
                 if(update_field == "from"){
-                    to_update.update_flights(words[0], words[1], new_value, words[3], words[4], words[5]);
+                    to_update.update_flights(words[0], words[1], new_value, words[3], words[4], words[5], words[6]);
                 }
                 
                 else if(update_field == "to"){
-                    to_update.update_flights(words[0], words[1], words[2], new_value, words[4], words[5]);
+                    to_update.update_flights(words[0], words[1], words[2], new_value, words[4], words[5], words[6]);
                 }
 
                 else if(update_field == "fare"){
-                    to_update.update_flights(words[0], words[1], words[2], words[3], new_value, words[5]);
+                    to_update.update_flights(words[0], words[1], words[2], words[3], new_value, words[5], words[6]);
+                }
+
+                else if(update_field == "seats"){
+                    to_update.update_flights(words[0], words[1], words[2], words[3], words[4], new_value, words[6]);
                 }
 
                 else if(update_field == "status"){
-                    to_update.update_flights(words[0], words[1], words[2], words[3], words[4], new_value);
+                    to_update.update_flights(words[0], words[1], words[2], words[3], words[4], words[5], new_value);
                 }
             }
 
