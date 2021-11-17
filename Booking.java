@@ -3,21 +3,24 @@ import java.util.*;
 
 public class Booking {
 
-    String date; //Format: DDMMYYY
-    String time; // Format: HHMM (24 hrs)
-    Airline airline; // to update the respective files
+    private String date; //Format: DDMMYYY
+    private String time; // Format: HHMM (24 hrs)
+    private Airline airline; // to update the respective files
+    private String from;
+    private String to;
 
 
     public Booking() {
     }
 
 
-    public Booking(String date, String time, Airline airline) {
+    public Booking(String date, String from, String to) {
         this.date = date;
-        this.time = time;
-        this.airline = airline;
+        this.from = from;
+        this.to = to;
     }
 
+    //--------------------------------------------Getters and setters---------------------------------------------//
 
     public String getDate() {
         return this.date;
@@ -42,6 +45,25 @@ public class Booking {
     public void setAirline(Airline airline) {
         this.airline = airline;
     }
+
+    public String getFrom() {
+        return this.from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getTo() {
+        return this.to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+    
+    //------------------------------------------------------------------------------------------------------------//
+
 
     
 }
