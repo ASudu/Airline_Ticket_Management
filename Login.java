@@ -183,6 +183,11 @@ class Customer implements Serializable{
     private String address;
     private Integer Balance = 0;
     private int uniqueCode;
+    // Additional fields needed while booking
+    String travel_date;
+    String travel_from;
+    String travel_to;
+    int baggage_weight;
 
 
     //----------------------------------Constructor to create Customer object-----------------------------------------//
@@ -347,6 +352,10 @@ class Customer implements Serializable{
 
         Files.write(path, fileContent, StandardCharsets.UTF_8);
     }
+
+    // public void do_booking()
+    // public void view_ticket()
+    // public void cancel_ticket()
 
 
 }
