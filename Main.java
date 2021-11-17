@@ -1,14 +1,14 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class Main {
+
+    static Console cnsl = System.console();
+
 
     public static void go_to_login_page()throws Exception{
 
         String[] arg1 = new String[2];
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Press M to go back to Login prompt or Press Q to quit");
-        String read = reader.readLine();
+        String read = cnsl.readLine("Press \"M\" to go back to Login prompt or Press \"Q\" to quit: ").strip();
 
         if(read.equals("M")){
 
@@ -35,10 +35,9 @@ public class Main {
 
         System.out.println("*********************************************************************************");
         System.out.println("WELCOME TO AIRLINE RESERVATION SYSTEM !\n");
-        System.out.println("Press L to Login or Press S to Sign up");
-        System.out.println("Press Q to quit anytime");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String read = reader.readLine();
+        System.out.println("Enter one of the following: ");
+        System.out.println("1. \"L\" to Login\n2. \"S\" to Sign up\n3. \"Q\" to quit");
+        String read = cnsl.readLine("Your choice: ").strip();
 
         if(read.equals("L")){
 
@@ -50,16 +49,15 @@ public class Main {
 
             System.out.println("Welcome Mr./Mrs."+c.Name);
             System.out.println("------------------------");
-            System.out.println("------------------------");
-            System.out.println("Press C to change credentials U to update balance: ");
-            // System.out.print("||Press U to update balance");
-            read = reader.readLine();
+            System.out.print("------------------------");
+            System.out.println("Enter one of the following: ");
+            System.out.println("1. \"C\" to change credentials\n2. \"U\" to update balance\n3. \"B\" to book ticket\n4. \"V\" to view ticket\n5. \"E\" to cancel ticket\n6. \"Q\" to quit");
+            read = cnsl.readLine("Your choice: ").strip();
 
             if(read.equals("C")){
 
                 c.change_credentials();
-                System.out.println("Do you want to quit? Type Y for yes and N for no: ");
-                read = reader.readLine();
+                read = cnsl.readLine("Do you want to quit? Type Y for yes and N for no: ").strip();
 
                 if(read.equals("N"))
                     c = Login.LOG_IN();
@@ -80,7 +78,22 @@ public class Main {
                 c.update_balance();
             }
 
+            // Yet to define fns   
+            // else if(read.equals("B")){
+            //     c.do_booking(); // Yet to define
+            // }
+            
+            // else if(read.equals("V")){
+            //     c.view_ticket();  // Yet to define
+            // }
 
+            // else if(read.equals("E")){
+            //     c.cancel_ticket();  // Yet to define
+            // }
+
+            else if(read.equals("Q")){
+                System.exit(0);;
+            }
 
         }
         
