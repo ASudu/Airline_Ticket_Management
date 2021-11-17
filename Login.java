@@ -235,8 +235,8 @@ public class Login {
         else {
 
             System.out.println("Enter your details again, Existing username already exists !");
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            // System.out.print("\033[H\033[2J");
+            // System.out.flush();
             Main.go_to_login_page();
             log_file.append("Failed attempt at Signing up");
 
@@ -252,10 +252,13 @@ public class Login {
 
         // login customer_database : username, password, Customer name, balance
         File login_customerDB = new File(current_dir + "\\login_customerDB.txt");
+
         // login staff_database : username, password, Staff name, airline, ID
         File login_staffDB = new File(current_dir + "\\login_staffDB.txt");
+
         // BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         // Commented above line since the local var br wasn't used an only the class br declared at start was used
+        
         if(object.equals("Customer")){
 
         FileReader fr = new FileReader(login_customerDB);

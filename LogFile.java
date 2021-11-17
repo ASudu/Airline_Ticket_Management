@@ -1,6 +1,3 @@
-// import java.util.*;
-// import java.io.*;
-// import java.lang.*;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,8 +18,8 @@ public class LogFile{
 
         // Call finer method
         logger.finer(c.username+" :: "+str);
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        // System.out.print("\033[H\033[2J");
+        // System.out.flush();
 
 
     }
@@ -36,8 +33,8 @@ public class LogFile{
 
         // Call finer method
         logger.finer(s.username+" :: "+str);
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        // System.out.print("\033[H\033[2J");
+        // System.out.flush();
 
 
     }
