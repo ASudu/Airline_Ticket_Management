@@ -89,6 +89,11 @@ public class Flight{
         return this.customers_booked;
     }
 
+    public void setCustomers_booked(int booked) {
+        this.customers_booked = booked;
+        this.free_seats -= booked;
+    }
+
     
     // public void update_Customers_booked(HashSet<Customer> customers_booked) {
     //     this.customers_booked = customers_booked;
