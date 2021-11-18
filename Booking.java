@@ -257,19 +257,30 @@ class Seats implements Serializable {
             Files.write(path, fileContent, StandardCharsets.UTF_8);
 
         }else if(code_exists(code)&&choice.equals("cancel")){
-            Path path = Paths.get(current_dir + "\\flight_seats.txt");
+            Path path = Paths.get(current_dir + "\\flight_DB.txt");
             List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
             for (int k = 0; k < fileContent.size(); k++){
                 if(fileContent.get(k).contains(seat_index(i,j))){
-                    String str1_with_code = fileContent.get(k).split(seat_index(i,j))[0];
-                    String str1 = str1_with_code.split("@")[1];
-                    String str2 = fileContent.get(k).split(seat_index(i,j))[1];
-                    System.out.println(str1);
-                    System.out.println(str2);
+                    String flight_code = fileContent.get(k).split("@")[0];
+                    String str = fileContent.get(k).split("@")[1];
+                    String[] seats_user = str.split(",");
+                    ArrayList<String> new_Seats  = new ArrayList<String>();
+                    for(int m=0;m<seats_user.length;m++){
+                        if(!seats_user[m].contains(seat_index(i,j))){
+                            System.out.println(seats_user[m]);
+                            new_Seats.add(seats_user[m]);
+                        }
+                    }
+                    String temp = "";
+                    for(String s:new_Seats){
+                        temp = temp.concat(s+",");
+                    }
+                    fileContent.set(k,flight_code+"@"+temp);
 
                     break;
                 }
             }
+            Files.write(path, fileContent, StandardCharsets.UTF_8);
         }
 
 
