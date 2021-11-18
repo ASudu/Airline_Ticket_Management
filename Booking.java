@@ -1,5 +1,12 @@
 import java.io.*;
-import java.util.*;
+import java.lang.reflect.Array;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Booking {
 
@@ -67,23 +74,16 @@ public class Booking {
 
     
 }
-import java.io.*;
-import java.lang.reflect.Array;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
-public class Main{
+class Driver1{
 
 
     public static void main(String[] args) throws Exception {
-        Flight f1 = new Flight("6E 0005");
+        Seats f1 = new Seats("6E 0005");
 
-        f1.update_flightDB(5,0,4,"6E 0005","cancel");
+        // System.out.println(Integer.toString(f1.seats_available));
+
+        // f1.update_flightDB(5,0,4,"6E 0005","cancel");
 
 
 
@@ -91,17 +91,19 @@ public class Main{
 
 }
 
-class Flight implements Serializable {
+class Seats implements Serializable {
+    
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    Integer[][] seat_matrix = new Integer[30][6];
-    int seats_available = 180;
     static String current_dir = System.getProperty("user.dir");
-    static File flight_DB = new File(current_dir + "\\flight_DB.txt");
-    //String[][] seat_matrix_user = new String[30][6];
-     String flightCode;
+    static File flight_seats = new File(current_dir + "\\flight_seats.txt");
+
+    Integer[][] seat_matrix = new Integer[30][6]; // 30 rows 6 columns - layout of seats in flight
+    Flight temp_flight = new Flight();
+    int seats_available = temp_flight.total_seats;
+    String flightCode; // Can't use tem_flight.flight_code since it is public
     int num_user;
 
-    Flight(String flightCode)throws Exception{
+    Seats(String flightCode)throws Exception{
         this.flightCode = flightCode;
 
         for(int i=0;i<30;i++){
@@ -112,7 +114,7 @@ class Flight implements Serializable {
 
 
         if(code_exists(flightCode)){
-            Path path = Paths.get(current_dir + "\\flight_DB.txt");
+            Path path = Paths.get(current_dir + "\\flight_seats.txt");
 
             List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
             for (int i = 0; i < fileContent.size(); i++) {
@@ -234,14 +236,14 @@ class Flight implements Serializable {
 
     }
        void update_flightDB(/* Customer c */ Integer num,int i, int j,String code,String choice)throws Exception{
-        FileWriter fw = new FileWriter(flight_DB,true);
+        FileWriter fw = new FileWriter(flight_seats,true);
 
         if(!code_exists(code)&&choice.equals("book")) {
             fw.write(flightCode + "@" + seat_index(i, j) + ":" + "user" + num.toString());
             fw.close();
 
         }else if(code_exists(code)&&choice.equals("book")){
-            Path path = Paths.get(current_dir + "\\flight_DB.txt");
+            Path path = Paths.get(current_dir + "\\flight_seats.txt");
             List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
             for (int k = 0; k < fileContent.size(); k++) {
                 String get_code = fileContent.get(k).split("@")[0];
@@ -255,7 +257,7 @@ class Flight implements Serializable {
             Files.write(path, fileContent, StandardCharsets.UTF_8);
 
         }else if(code_exists(code)&&choice.equals("cancel")){
-            Path path = Paths.get(current_dir + "\\flight_DB.txt");
+            Path path = Paths.get(current_dir + "\\flight_seats.txt");
             List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
             for (int k = 0; k < fileContent.size(); k++){
                 if(fileContent.get(k).contains(seat_index(i,j))){
@@ -274,7 +276,7 @@ class Flight implements Serializable {
 
     }
     static boolean code_exists(String code)throws Exception{
-        Path path = Paths.get(current_dir + "\\flight_DB.txt");
+        Path path = Paths.get(current_dir + "\\flight_seats.txt");
 
         List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
         for (int i = 0; i < fileContent.size(); i++) {

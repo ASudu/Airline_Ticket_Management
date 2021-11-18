@@ -137,8 +137,7 @@ class Point extends Object{
 }
  class Driver{
      public static void main(String[] args){
-         City c = new City();
         //  c.construct_file();
-        c.display_list_of_cities();
+        City.display_list_of_cities();
      }
  }
