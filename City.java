@@ -82,7 +82,7 @@ public class City {
 
     }
 
-    public void display_list_of_cities(){
+    public static void display_list_of_cities(){
 
         BufferedReader br = null;
 

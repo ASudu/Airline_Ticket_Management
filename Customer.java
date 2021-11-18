@@ -97,14 +97,10 @@ public class Customer implements Serializable{
 
         if (this.username.equals(username) && this.password.equals(password)) {
             if (choice.equals("deduct")) {
-//                System.out.println("Previous Balance Rs."+Balance);
                 this.Balance -= amount;
-//                System.out.println("Current Balance Rs."+Balance);
                 return 1;
             } else if (choice.equals("add")) {
-//                System.out.println("Previous Balance Rs."+Balance);
                 this.Balance += amount;
-//                System.out.println("Current Balance Rs."+Balance);
                 return 1;
             }
         }
@@ -206,20 +202,20 @@ public class Customer implements Serializable{
         Files.write(path, fileContent, StandardCharsets.UTF_8);
     }
 
-    // public void do_booking(){
+    public void do_booking(){
 
-    //     City.display_list_of_cities();
+        City.display_list_of_cities();
         
-    //     // Get date of travel
-    //     String travel_date = cnsl.readLine("Enter date of travel (format: DD-MM-YYY): ");
-    //     String from = cnsl.readLine("Travel from: ");
-    //     String to = cnsl.readLine("travel to: ");
+        // Get date of travel
+        String travel_date = cnsl.readLine("Enter date of travel (format: DD-MM-YYY): ");
+        String from = cnsl.readLine("Travel from: ");
+        String to = cnsl.readLine("travel to: ");
 
-    //     Booking b = new Booking(travel_date, from, to);
+        Booking b = new Booking(travel_date, from, to);
 
 
 
-    // }
+    }
     // public void view_ticket()
     // public void cancel_ticket()
 

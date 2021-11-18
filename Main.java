@@ -118,15 +118,15 @@ public class Main {
             }
 
             // Yet to define fns
-            // else if(read.equals("B")){
+            else if(read.equals("B")){
 
-            //     // Clears terminal
-            //     System.out.print("\033[H\033[2J");
-            //     System.out.flush();
+                // Clears terminal
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
                 
-            //     System.out.println("*********************   BOOKING    *********************");
-            //     c.do_booking(); // Yet to define
-            // }
+                System.out.println("*********************   BOOKING    *********************");
+                c.do_booking(); // Yet to define
+            }
             
             // else if(read.equals("V")){
 
