@@ -18,18 +18,19 @@ public class Customer implements Serializable{
     private String gender;
     private String password;
     private String address;
-    private Integer Balance = 0;
+    private Integer Balance;
     private int uniqueCode;
     // Additional fields needed while booking
     String travel_date;
     String travel_from;
     String travel_to;
-    int baggage_weight;
-
+    // String seat_no = null;
+    Booking booked;
 
     //----------------------------------Constructor to create Customer object-----------------------------------------//
     Customer(){
-
+        this.Balance = 0;
+        this.booked = null;
     }
 
     // Constructor to set up the customer's account
@@ -204,6 +205,10 @@ public class Customer implements Serializable{
 
     public void do_booking(){
 
+        // Clears terminal
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        
         City.display_list_of_cities();
         
         // Get date of travel

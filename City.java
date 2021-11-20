@@ -93,18 +93,20 @@ public class City {
 
             String[] display = new String[3];
             String str;
+            int row = 1;
 
-            System.out.println("-------------------------");
-            System.out.println("From           To");
-            System.out.println("-------------------------");
+            System.out.println("-----------------------------------------");
+            System.out.println("From              To");
+            System.out.println("-----------------------------------------");
             while((str = br.readLine()) != null){
                 display = str.split(",");
                 String space = "";
                 for(int i=0;i<13-display[0].length(); i++)
                     space += " ";   
-                System.out.println(display[0]+ space + "|" + display[1]);
+                System.out.println(row + ". " + display[0]+ space + "|  " + display[1] + "\n");
+                row++;
             }
-            System.out.println("-------------------------");
+            System.out.println("-----------------------------------------");
 
             br.close();
         }
