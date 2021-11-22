@@ -9,6 +9,8 @@ public class Customer implements Serializable{
 
     static String current_dir = System.getProperty("user.dir");
     static File login_customerDB = new File(current_dir + "\\login_customerDB.txt");
+    static File flights = new File(current_dir + "\\flights.txt");
+    static File flight_seats = new File(current_dir + "\\flight_seats.txt");
     static Console cnsl = System.console();
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     
@@ -203,7 +205,7 @@ public class Customer implements Serializable{
         Files.write(path, fileContent, StandardCharsets.UTF_8);
     }
 
-    public void do_booking(){
+    public void do_booking()throws Exception{
 
         // Clears terminal
         System.out.print("\033[H\033[2J");
@@ -216,13 +218,120 @@ public class Customer implements Serializable{
         String from = cnsl.readLine("Travel from: ");
         String to = cnsl.readLine("travel to: ");
 
+        // Show relevant flights
+        BufferedReader br = null;
+
+        try {
+            FileReader fr = new FileReader(flights);
+            br = new BufferedReader(fr);
+
+            String line;
+
+            while((line = br.readLine()) != null){
+
+                String[] fields = line.split(",");
+
+                if(fields[2].equals(from) && fields[3].equals(to)){
+
+                    if(Integer.parseInt(fields[5]) > 0){
+
+                        for(int i = 0; i < 6; i++){
+
+                            String spaces = "";
+
+                            for(int j = 0; j < 13 - fields[i].length(); j++)
+                                spaces += " ";
+                            
+                            System.out.println(fields[i] + spaces);
+                        }
+
+                        System.out.println("\n");
+                    }
+                        
+                }
+                
+                
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
+        String code = cnsl.readLine("Enter flight code you choose from above list:  ");
+        int n = Integer.parseInt(cnsl.readLine("Enter number of passengers: "));
+
+        TreeMap<String, String> passengers = new TreeMap<String, String>();
+        for(int i = 0; i< n; i++){
+
+            passengers.put(cnsl.readLine("Enter name of passenger" + Integer.toString(i+1) + ": "), 
+                            cnsl.readLine("Enter age of passenger" + Integer.toString(i+1) + ": "));
+        }
+        
         Booking b = new Booking(travel_date, from, to);
+
+        // Bookings done
+        b.seat_ops(code, "book", this, passengers);
 
 
 
     }
     // public void view_ticket()
-    // public void cancel_ticket()
+    public void cancel_ticket() throws Exception{
+
+        // Clears terminal
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+      
+        // Get date of travel
+        String travel_date = cnsl.readLine("Enter date of travel (format: DD-MM-YYY): ");
+        String from = cnsl.readLine("Travel from: ");
+        String to = cnsl.readLine("travel to: ");
+        String code = cnsl.readLine("Enter flight code you booked:  ");
+
+
+        // Check if booking exists
+        BufferedReader br = null;
+
+        try {
+
+            Path path = Paths.get(current_dir + "\\flight_seats.txt");
+            List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
+
+            for (int k = 0; k < fileContent.size(); k++) {
+
+                String get_code = fileContent.get(k).split("@")[0];
+                if(get_code.equals(code)) {
+
+                    String temp = fileContent.get(k); // Copy existing contents of the line to temp
+                    if(temp.contains(this.username)){
+
+                    }
+
+                }
+
+            }
+                
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
+        int n = Integer.parseInt(cnsl.readLine("Enter number of passengers: "));
+
+        TreeMap<String, Integer> passengers = new TreeMap<String, Integer>();
+        for(int i = 0; i< n; i++){
+
+            passengers.put(cnsl.readLine("Enter name of passenger" + Integer.toString(i+1) + ": "), 
+                            Integer.parseInt(cnsl.readLine("Enter age of passenger" + Integer.toString(i+1) + ": ")));
+        }
+        
+        Booking b = new Booking(travel_date, from, to);
+
+        // Bookings done
+        b.seat_ops(code, "book", this, passengers);
+
+
+
+    }
 
 
 }
