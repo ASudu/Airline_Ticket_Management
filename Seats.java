@@ -70,107 +70,108 @@ public class Seats implements Serializable {
         int counter = 0;
         String seat_no = "";
 
-        // Window seat to be booked
-        if(read.equals("W")){
+        while(!read.equals("W") && !read.equals("M") && !read.equals("A") && !read.equals("N") && !read.equals("Q")){
 
-            for(int i =0;i<30;i++){
-                for(int j=0;j<6;j++){
-                    if((j==0||j==5) && (check_seat_vacant(i,j))){
+            // Window seat to be booked
+            if(read.equals("W")){
 
-                        seat_matrix[i][j] = 1;
-                        update_flightDB(c,i,j,flightCode,name,"book");
+                for(int i =0;i<30;i++){
+                    for(int j=0;j<6;j++){
+                        if((j==0||j==5) && (check_seat_vacant(i,j))){
 
-                        System.out.println("Your seat number is : " +seat_index(i,j));
-                        seat_no = seat_no+seat_index(i,j);
-                        // c.seat_no = seat_index(i, j);
-                        //seat_matrix_user[i][j]=/* c.username */;
-                        counter =1;
-                        temp_flight.setCustomers_booked(1);
-                        break;
+                            seat_matrix[i][j] = 1;
+                            update_flightDB(c,i,j,flightCode,name,"book");
+
+                            System.out.println("Your seat number is : " +seat_index(i,j));
+                            seat_no = seat_no+seat_index(i,j);
+                            // c.seat_no = seat_index(i, j);
+                            //seat_matrix_user[i][j]=/* c.username */;
+                            counter =1;
+                            temp_flight.setCustomers_booked(1);
+                            break;
+                        }
                     }
+                    if(counter!=0)break;
                 }
-                if(counter!=0)break;
+
             }
 
-        }
+            // Middle seat to be booked
+            if(read.equals("M")){
 
-        // Middle seat to be booked
-        if(read.equals("M")){
+                for(int i =0;i<30;i++){
+                    for(int j=0;j<6;j++){
+                        if((j==1||j==4) && (check_seat_vacant(i,j))){
 
-            for(int i =0;i<30;i++){
-                for(int j=0;j<6;j++){
-                    if((j==1||j==4) && (check_seat_vacant(i,j))){
+                            seat_matrix[i][j] = 1;
+                            update_flightDB(c,i,j,flightCode,name,"book");
 
-                        seat_matrix[i][j] = 1;
-                        update_flightDB(c,i,j,flightCode,name,"book");
-
-                        System.out.println("Your seat number is : " +seat_index(i,j));
-                        seat_no = seat_no+seat_index(i,j);
-                        // c.seat_no = seat_index(i, j);
-                        //seat_matrix_user[i][j]=/* c.username */;
-                        counter =1;
-                        temp_flight.setCustomers_booked(1);
-                        break;
+                            System.out.println("Your seat number is : " +seat_index(i,j));
+                            seat_no = seat_no+seat_index(i,j);
+                            // c.seat_no = seat_index(i, j);
+                            //seat_matrix_user[i][j]=/* c.username */;
+                            counter =1;
+                            temp_flight.setCustomers_booked(1);
+                            break;
+                        }
                     }
+                    if(counter!=0)break;
                 }
-                if(counter!=0)break;
+
             }
 
-        }
+            // Aisle seat to be booked
+            if(read.equals("A")){
 
-        // Window seat to be booked
-        if(read.equals("A")){
+                for(int i =0;i<30;i++){
+                    for(int j=0;j<6;j++){
+                        if((j==2||j==3) && (check_seat_vacant(i,j))){
 
-            for(int i =0;i<30;i++){
-                for(int j=0;j<6;j++){
-                    if((j==2||j==3) && (check_seat_vacant(i,j))){
+                            seat_matrix[i][j] = 1;
+                            update_flightDB(c,i,j,flightCode,name,"book");
 
-                        seat_matrix[i][j] = 1;
-                        update_flightDB(c,i,j,flightCode,name,"book");
-
-                        System.out.println("Your seat number is : " +seat_index(i,j));
-                        seat_no = seat_no+seat_index(i,j);
-                        // c.seat_no = seat_index(i, j);
-                        //seat_matrix_user[i][j]=/* c.username */;
-                        counter =1;
-                        temp_flight.setCustomers_booked(1);
-                        break;
+                            System.out.println("Your seat number is : " +seat_index(i,j));
+                            seat_no = seat_no+seat_index(i,j);
+                            // c.seat_no = seat_index(i, j);
+                            //seat_matrix_user[i][j]=/* c.username */;
+                            counter =1;
+                            temp_flight.setCustomers_booked(1);
+                            break;
+                        }
                     }
+                    if(counter!=0)break;
                 }
-                if(counter!=0)break;
+
+            }
+            
+            else if(read.equals("N")){
+                for(int i=0;i<30;i++){
+                    for(int j=0;j<6;j++){
+                        if(check_seat_vacant(i,j)){
+                            this.update_seats(i,j);
+                            update_flightDB(c,i,j,flightCode,name,"book");
+                            System.out.println("Your seat number is : " +seat_index(i,j));
+                            seat_no = seat_no+seat_index(i,j);
+                            // c.seat_no = seat_index(i, j);
+                            //seat_matrix_user[i][j]=/* c.username */;
+                            counter = 1;
+                            temp_flight.setCustomers_booked(1);
+                            break;
+                        }
+                    }
+                    if(counter!=0)break;
+                }
+            }
+            
+            else if(read.equals("Q")){
+                System.out.println("Exiting.....");
+                System.exit(0);
             }
 
+            else
+                System.out.println("Please enter a valid input");
         }
         
-        else if(read.equals("N")){
-            for(int i=0;i<30;i++){
-                for(int j=0;j<6;j++){
-                    if(check_seat_vacant(i,j)){
-                        this.update_seats(i,j);
-                        update_flightDB(c,i,j,flightCode,name,"book");
-                        System.out.println("Your seat number is : " +seat_index(i,j));
-                        seat_no = seat_no+seat_index(i,j);
-                        // c.seat_no = seat_index(i, j);
-                        //seat_matrix_user[i][j]=/* c.username */;
-                        counter = 1;
-                        temp_flight.setCustomers_booked(1);
-                        break;
-                    }
-                }
-                if(counter!=0)break;
-            }
-        }
-        
-        else if(read.equals("Q")){
-            System.out.println("Exiting.....");
-            System.exit(0);
-        }
-
-        else{
-            System.out.println("Please enter a valid input");
-            book_seat(c,name);
-        }
-
         return seat_no;
 
     }

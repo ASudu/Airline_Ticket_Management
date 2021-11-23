@@ -14,7 +14,7 @@ public class BoardingPass{
         this.flight_code = c;
     }
 
-    public void display_boarding_pass(Booking b)throws Exception{
+    public void display_boarding_pass()throws Exception{
 
         Path path = Paths.get(current_dir + "\\flight_seats.txt");
         Path p1 = Paths.get(current_dir + "\\flights.txt");

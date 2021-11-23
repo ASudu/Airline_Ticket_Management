@@ -265,16 +265,144 @@ public class Customer implements Serializable{
             passengers.put(cnsl.readLine("Enter name of passenger" + Integer.toString(i+1) + ": "), 
             cnsl.readLine("Enter age of passenger" + Integer.toString(i+1) + ": "));
         }
-        
-        Booking b = new Booking(travel_date, from, to);
 
-        // Bookings done
-        b.seat_ops(code, "book", this, passengers);
+        int already_booked = -1;
+        try {
+
+            Path path = Paths.get(current_dir + "\\flight_seats.txt");
+            List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
+            String passenger_name = "";
+            ArrayList<String> passenger_names = new ArrayList<>();
+            for (int k = 0; k < fileContent.size(); k++) {
+
+                String get_code = fileContent.get(k).split("@")[0];
+                if(get_code.equals(code)) {
+
+                    String temp = fileContent.get(k); // Copy existing contents of the line to temp
+                    if(temp.contains(this.username)){
+
+                        String seat_users = fileContent.get(k).split("@")[1]; //get all the seat users
+                        String[] getPassengers = seat_users.split(","); //separate each getPassengers : "seat-no:username$PassengerName"
+                        
+                        for(String s:getPassengers){
+                            if(s.contains(this.username)){       //if seat-no:username$PassengerName contains username
+                                String[] op = s.split(":");
+                                passenger_name = op[1].split("$")[1];
+                                if(passengers.keySet().contains(passenger_name)){
+                                    already_booked = 1;
+                                    passenger_names.add(passenger_name);
+                                }
+                                
+                                else
+                                    already_booked = 0;
+                            }
+                        }
+                        break;
+                    }
+                }
+
+                // Booking doesn't exist so allow booking
+                if(already_booked == 0){
+
+                    Booking b = new Booking(travel_date, from, to);
+                    // Bookings done
+                    b.seat_ops(code, "book", this, passengers);
+                }
+
+                // Booking already done for few members
+                else if(already_booked == 1){
+
+                    System.out.println("Seat is already booked for:");
+                    for(String s: passenger_names){
+                        System.out.println(s);
+                    }
+
+                    String choice = "";
+
+                    do{
+                        choice = cnsl.readLine("Enter 1. \"R\" to re-enter booking\n2. \"M\" to go to main page\n3. \"Q\" to quit");
+
+                        if(choice.equals("R"))
+                            do_booking();
+                        
+                        else if(choice.equals("M")){
+                            // Do something
+                        }
+
+                        else if(choice.equals("Q")){
+                            System.out.println("Exiting....");
+                            System.exit(0);
+                        }
+
+                        else
+                            System.out.println("Please enter valid input!");
+                    }while(!choice.equals("R") && !choice.equals("M") && !choice.equals("Q"));
+                }
+            }
+        }
+
+        catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    public void view_ticket(){
+        // Clears terminal
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        int booking_exists = 0;
+        //Get details of the flight 
+        BoardingPass bp;
+    
+        try {
+            String fc="";
+
+            Path path = Paths.get(current_dir + "\\flight_seats.txt");
+            List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
+
+            for (int k = 0; k < fileContent.size(); k++) {
+
+                String get_code = fileContent.get(k).split("@")[0];
+                String temp = fileContent.get(k); // Copy existing contents of the line to temp
+                    if(temp.contains(this.username)){
+                        fc = get_code;
+                        booking_exists = 1;
+                        bp = new BoardingPass(this.username, fc);
+                        bp.display_boarding_pass();
+                        break;
+                    }
+            
+            }
+            if(booking_exists == 0){
+                System.out.println("Booking doesn't exists in this username");
+                String choice = "";
+                do{
+                    choice = cnsl.readLine("Enter: 1. \"B\" to book\n2. \"M\" to go to main page\n3.\"Q\" to quit");
+
+                    if(choice.equals("B"))
+                        do_booking();
+                    
+                    else if(choice.equals("M")){
+                        // Do something
+                    }
+
+                    else if(choice.equals("Q")){
+                        System.out.println("Exiting....");
+                        System.exit(0);
+                    }
+
+                    else
+                    System.out.println("Please enter a valid input");
+
+                }while(!choice.equals("B") && !choice.equals("M") && !choice.equals("Q"));
+            }
+            }catch(Exception e ){
+                System.out.println(e.toString());
+            }
 
 
 
     }
-    // public void view_ticket()
 
     public void cancel_ticket() throws Exception{
 
@@ -288,6 +416,8 @@ public class Customer implements Serializable{
         String to = cnsl.readLine("travel to: ");
         String code = cnsl.readLine("Enter flight code you booked:  ");
         TreeMap<String, String> passengers = new TreeMap<String, String>();
+
+        int booking_exists = 0;
 
 
         // Check if booking exists
@@ -303,6 +433,8 @@ public class Customer implements Serializable{
 
                     String temp = fileContent.get(k); // Copy existing contents of the line to temp
                     if(temp.contains(this.username)){
+
+                        booking_exists = 1;
                         String seat_users = fileContent.get(k).split("@")[1]; //get all the seat users
                         String[] getPassengers = seat_users.split(","); //separate each getPassengers : "seat-no:username$PassengerName"
                         for(String s:getPassengers){
@@ -317,6 +449,30 @@ public class Customer implements Serializable{
                     }
                 }
             }
+
+            if(booking_exists == 0){
+                System.out.println("Booking doesn't exists in this username");
+                String choice = "";
+                do{
+                    choice = cnsl.readLine("Enter: 1. \"B\" to book\n2. \"M\" to go to main page\n3.\"Q\" to quit");
+
+                    if(choice.equals("B"))
+                        do_booking();
+                    
+                    else if(choice.equals("M")){
+                        // Do something
+                    }
+
+                    else if(choice.equals("Q")){
+                        System.out.println("Exiting....");
+                        System.exit(0);
+                    }
+
+                    else
+                    System.out.println("Please enter a valid input");
+
+                }while(!choice.equals("B") && !choice.equals("M") && !choice.equals("Q"));
+            }
         }
 
          catch (Exception e) {
@@ -328,47 +484,49 @@ public class Customer implements Serializable{
         System.out.println("Bookings under " + this.username);
         for (Map.Entry<String, String> entry : passengers.entrySet())
             System.out.println(entry.getKey() + ": " + entry.getValue() );
+
+        String choice = "";
         
-        String choice = cnsl.readLine("Enter: 1. \"C\" to continue\n2. \"M\" to go to main page\n3.\"Q\" to quit");
-        
-        if(choice.equals("C")){
-            int count = Integer.parseInt(cnsl.readLine("Enter number of seats to be cancelled: "));
+        do{
+            choice = cnsl.readLine("Enter: 1. \"C\" to continue\n2. \"M\" to go to main page\n3.\"Q\" to quit");
+            
+            if(choice.equals("C")){
+                int count = Integer.parseInt(cnsl.readLine("Enter number of seats to be cancelled: "));
 
-            if(count <= passengers.size()){
+                if(count <= passengers.size()){
 
-                String[] cancel_ppl = new String[count];
-                System.out.println("Enter names of passengers who seats are to be cancelled: \n");
+                    String[] cancel_ppl = new String[count];
+                    System.out.println("Enter names of passengers who seats are to be cancelled: \n");
 
-                for(int i = 0; i<count; i++)
-                    cancel_ppl[i] = cnsl.readLine();
-                
-                for (Map.Entry<String, String> entry : passengers.entrySet()){
-
-                    if(!Arrays.asList(cancel_ppl).contains(entry.getKey()))
-                        passengers.remove(entry.getKey());
-                }
+                    for(int i = 0; i<count; i++)
+                        cancel_ppl[i] = cnsl.readLine();
                     
+                    for (Map.Entry<String, String> entry : passengers.entrySet()){
+
+                        if(!Arrays.asList(cancel_ppl).contains(entry.getKey()))
+                            passengers.remove(entry.getKey());
+                    }
+                        
+                }
+
+                else{
+                    System.out.println("You have booked only " + Integer.toString(passengers.size()) + " !!!!!!");
+                    cancel_ticket();
+                }
             }
 
-            else{
-                System.out.println("You have booked only " + Integer.toString(passengers.size()) + " !!!!!!");
-                cancel_ticket();
+            else if(choice.equals("M")){
+                // Do something
             }
-        }
 
-        else if(choice.equals("M")){
-            // Do something
-        }
+            else if(choice.equals("Q")){
+                System.out.println("Exiting....");
+                System.exit(0);
+            }
 
-        else if(choice.equals("Q")){
-            System.out.println("Exiting....");
-            System.exit(0);
-        }
-
-        else{
-            System.out.println("Invalid input");
-            cancel_ticket();
-        }
+            else
+                System.out.println("Please enter a valid input");
+        }while(!choice.equals("B") && !choice.equals("M") && !choice.equals("Q"));
 
         // Cancellation done
         b.seat_ops(code, "cancel", this, passengers);
