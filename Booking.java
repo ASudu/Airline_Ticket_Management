@@ -52,9 +52,9 @@ public class Booking {
         return this.airline;
     }
 
-    public void setAirline(Airline airline) {
-        this.airline = airline;
-    }
+//    public void setAirline(Airline airline) {
+//        this.airline = airline;
+//    }
 
     public String getFrom() {
         return this.from;
@@ -85,9 +85,12 @@ public class Booking {
         Seats s = new Seats(flightcode);
 
         if(op.equals("book")){
-            
-            for (Map.Entry<String, String> entry : passengers.entrySet())
-                s.book_seat(c, entry.getKey());
+            String seat_num = "";
+            for (Map.Entry<String, String> entry : passengers.entrySet()) {
+                seat_num = s.book_seat(c, entry.getKey());
+                entry.setValue(seat_num);
+            }
+
 
         }
         
@@ -98,25 +101,27 @@ public class Booking {
     }
     
     //------------------------------------------------------------------------------------------------------------//
+}
+class BoardingPass{
 
+    String passengerName;
+    String seat_no;
+    String to;
+    String from;
+    String flight_code;
+    String time_of_departure;
+    String flight_duration;
+
+    BoardingPass(String p,String s,String t,String f,String c,String ti,String fd){
+        this.passengerName = p;
+        this.seat_no =s;
+        this.flight_duration = fd;
+        this.from =f;
+        this.to = t;
+        this.flight_code = c;
+        this.time_of_departure = ti;
+    }
 
     
+
 }
-
-// class Driver1{
-
-
-//     public static void main(String[] args) throws Exception {
-//         // Seats f1 = new Seats("6E 0005");
-
-//         // System.out.println(Integer.toString(f1.seats_available));
-
-//         // f1.update_flightDB(5,0,4,"6E 0005","cancel");
-
-
-
-//     }
-
-// }
-
-

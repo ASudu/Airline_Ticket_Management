@@ -32,7 +32,7 @@ public class Customer implements Serializable{
     //----------------------------------Constructor to create Customer object-----------------------------------------//
     Customer(){
         this.Balance = 0;
-        this.booked = null;
+//        this.booked = null;
     }
 
     // Constructor to set up the customer's account
@@ -263,7 +263,7 @@ public class Customer implements Serializable{
         for(int i = 0; i< n; i++){
 
             passengers.put(cnsl.readLine("Enter name of passenger" + Integer.toString(i+1) + ": "), 
-                            cnsl.readLine("Enter age of passenger" + Integer.toString(i+1) + ": "));
+                            "");
         }
         
         Booking b = new Booking(travel_date, from, to);
@@ -275,6 +275,7 @@ public class Customer implements Serializable{
 
     }
     // public void view_ticket()
+
     public void cancel_ticket() throws Exception{
 
         // Clears terminal
@@ -286,6 +287,7 @@ public class Customer implements Serializable{
         String from = cnsl.readLine("Travel from: ");
         String to = cnsl.readLine("travel to: ");
         String code = cnsl.readLine("Enter flight code you booked:  ");
+        TreeMap<String, String> passengers = new TreeMap<String, String>();
 
 
         // Check if booking exists
@@ -303,35 +305,26 @@ public class Customer implements Serializable{
 
                     String temp = fileContent.get(k); // Copy existing contents of the line to temp
                     if(temp.contains(this.username)){
-
+                        String seat_users = fileContent.get(k).split("@")[1]; //get all the seat users
+                        String[] getPassengers = seat_users.split(","); //separate each getPassengers : "seat-no:username$PassengerName"
+                        for(String s:getPassengers){
+                            if(s.contains(this.username)){       //if seat-no:username$PassengerName contains username
+                                String[] op = s.split(":");
+                                String passenger_name = op[1].split("$")[1];
+                                String passenger_Seat = op[0];
+                                passengers.put(passenger_name,passenger_Seat);
+                            }
+                        }
+                        break;
                     }
-
                 }
-
             }
-                
             }
-        } catch (Exception e) {
+         catch (Exception e) {
             System.out.println(e.toString());
         }
-
-        int n = Integer.parseInt(cnsl.readLine("Enter number of passengers: "));
-
-        TreeMap<String, Integer> passengers = new TreeMap<String, Integer>();
-        for(int i = 0; i< n; i++){
-
-            passengers.put(cnsl.readLine("Enter name of passenger" + Integer.toString(i+1) + ": "), 
-                            Integer.parseInt(cnsl.readLine("Enter age of passenger" + Integer.toString(i+1) + ": ")));
-        }
-        
         Booking b = new Booking(travel_date, from, to);
-
-        // Bookings done
-        b.seat_ops(code, "book", this, passengers);
-
-
-
+        // Cancellation done
+        b.seat_ops(code, "cancel", this, passengers);
     }
-
-
 }

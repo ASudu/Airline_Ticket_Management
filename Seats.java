@@ -63,12 +63,13 @@ public class Seats implements Serializable {
     }
 
 
-    void book_seat(Customer c, String name)throws Exception{
+    String book_seat(Customer c, String name)throws Exception{
 
         System.out.println("which seat do you prefer?: ");
         System.out.println("1. \"W\" for window seat\n2. \"M\" for middle seat\n3. \"A\" for Aisle seat\n4. \"N\" for no preference\n5. \"Q\" to quit");
         String read = cnsl.readLine("Your choice: ").strip();
         int counter = 0;
+        String seat_no = "";
 
         // Window seat to be booked
         if(read.equals("W")){
@@ -81,6 +82,7 @@ public class Seats implements Serializable {
                         update_flightDB(c,i,j,flightCode,name,"book");
 
                         System.out.println("Your seat number is : " +seat_index(i,j));
+                        seat_no = seat_no+seat_index(i,j);
                         // c.seat_no = seat_index(i, j);
                         //seat_matrix_user[i][j]=/* c.username */;
                         counter =1;
@@ -104,6 +106,7 @@ public class Seats implements Serializable {
                         update_flightDB(c,i,j,flightCode,name,"book");
 
                         System.out.println("Your seat number is : " +seat_index(i,j));
+                        seat_no = seat_no+seat_index(i,j);
                         // c.seat_no = seat_index(i, j);
                         //seat_matrix_user[i][j]=/* c.username */;
                         counter =1;
@@ -127,6 +130,7 @@ public class Seats implements Serializable {
                         update_flightDB(c,i,j,flightCode,name,"book");
 
                         System.out.println("Your seat number is : " +seat_index(i,j));
+                        seat_no = seat_no+seat_index(i,j);
                         // c.seat_no = seat_index(i, j);
                         //seat_matrix_user[i][j]=/* c.username */;
                         counter =1;
@@ -146,6 +150,7 @@ public class Seats implements Serializable {
                         this.update_seats(i,j);
                         update_flightDB(c,i,j,flightCode,name,"book");
                         System.out.println("Your seat number is : " +seat_index(i,j));
+                        seat_no = seat_no+seat_index(i,j);
                         // c.seat_no = seat_index(i, j);
                         //seat_matrix_user[i][j]=/* c.username */;
                         counter = 1;
@@ -166,6 +171,8 @@ public class Seats implements Serializable {
             System.out.println("Please enter a valid input");
             book_seat(c,name);
         }
+
+        return seat_no;
 
     }
 
@@ -313,7 +320,9 @@ public class Seats implements Serializable {
                     // Modifying the line which contained seat
                     String temp = "";
                     for(String s:new_Seats){
+                        if(!s.equals(new_Seats.get(new_Seats.size()-1)))
                         temp = temp.concat(s+",");
+                        else temp = temp.concat(s);
                     }
 
                     // Updating the arraylist
