@@ -39,6 +39,12 @@ public class BoardingPass{
             }
         }
 
+        // To get airport code and terminal
+        City c_from = new City();
+        City c_to = new City();
+        c_from  = c_from.assign_city(from);
+        c_to = c_to.assign_city(to);
+
         for(int i = 0; i<fileContent.size(); i++){
 
             String get_code = fileContent.get(i).split("@")[0];
@@ -58,8 +64,8 @@ public class BoardingPass{
 
                             System.out.println("***********************************************************************");
                             System.out.println("THANK YOU FOR FLYING WITH " + airline + "!!");
-                            System.out.println("   CODE: " + this.flight_code);
-                            System.out.println("   FROM: " + from + "            TO: " + to);
+                            System.out.println("   FLIGHT CODE: " + this.flight_code);
+                            System.out.println("   FROM: " + from + "(" + c_from.getAirport() + ")" + "            TO: " + to + "(" + c_to.getAirport() + ")");
                             System.out.println("   TIME: " + time);
                             System.out.println("   PASSENGER NAME: " + passenger_name + "  SEAT NUMBER: " + passenger_Seat);
                             System.out.println("***********************************************************************");

@@ -61,6 +61,22 @@ public class Seats implements Serializable {
         }
     }
 
+    String[] get_flight_details(String code) throws IOException{
+        String[] temp = null;
+
+        Path p1 = Paths.get(current_dir + "\\flights.txt");
+        List<String> fileContent1 = new ArrayList<>(Files.readAllLines(p1, StandardCharsets.UTF_8));
+        for(int k = 0; k < fileContent1.size(); k++){
+
+            temp = fileContent1.get(k).split(",");
+
+            if(temp[1].equals(code)){
+               return temp;
+            }
+        }
+        return temp;
+    }
+
 
     String book_seat(Customer c, String name)throws Exception{
 
@@ -88,6 +104,8 @@ public class Seats implements Serializable {
                             //seat_matrix_user[i][j]=/* c.username */;
                             counter =1;
                             temp_flight.setCustomers_booked(1);
+                            String[] arr = get_flight_details(this.flightCode);
+                            temp_flight.update_flights(arr[0], arr[1], arr[2], arr[3], arr[4], Integer.toString(temp_flight.getFree_seats()), arr[6], arr[7]);
                             break;
                         }
                     }
@@ -112,6 +130,8 @@ public class Seats implements Serializable {
                             //seat_matrix_user[i][j]=/* c.username */;
                             counter =1;
                             temp_flight.setCustomers_booked(1);
+                            String[] arr = get_flight_details(this.flightCode);
+                            temp_flight.update_flights(arr[0], arr[1], arr[2], arr[3], arr[4], Integer.toString(temp_flight.getFree_seats()), arr[6], arr[7]);
                             break;
                         }
                     }
@@ -136,6 +156,8 @@ public class Seats implements Serializable {
                             //seat_matrix_user[i][j]=/* c.username */;
                             counter =1;
                             temp_flight.setCustomers_booked(1);
+                            String[] arr = get_flight_details(this.flightCode);
+                            temp_flight.update_flights(arr[0], arr[1], arr[2], arr[3], arr[4], Integer.toString(temp_flight.getFree_seats()), arr[6], arr[7]);
                             break;
                         }
                     }
@@ -156,6 +178,8 @@ public class Seats implements Serializable {
                             //seat_matrix_user[i][j]=/* c.username */;
                             counter = 1;
                             temp_flight.setCustomers_booked(1);
+                            String[] arr = get_flight_details(this.flightCode);
+                            temp_flight.update_flights(arr[0], arr[1], arr[2], arr[3], arr[4], Integer.toString(temp_flight.getFree_seats()), arr[6], arr[7]);
                             break;
                         }
                     }
@@ -237,8 +261,11 @@ public class Seats implements Serializable {
         int j = (int)(read[1].charAt(0)) - 65;
         seat_matrix[i][j] = 0;
         temp_flight.setCustomers_booked(-1);
+
         // c.seat_no = null;
         update_flightDB(c, i, j, this.flightCode, name, "cancel");
+        String[] arr = get_flight_details(this.flightCode);
+        temp_flight.update_flights(arr[0], arr[1], arr[2], arr[3], arr[4], Integer.toString(temp_flight.getFree_seats()), arr[6], arr[7]);
 
     }
 

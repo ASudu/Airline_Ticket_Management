@@ -160,6 +160,56 @@ public class Customer implements Serializable{
         return 0;
     }
 
+    public int update_balance(String choice,Integer amount,float weight) throws Exception{
+       
+        System.out.println("*****************   UPDATE BALANCE    *****************");
+
+        String username;
+        String password;
+
+
+        
+
+        username = this.username;
+        password = this.get_password();
+        
+        
+
+        if (choice.equals("book")) {
+
+            System.out.println("Previous Balance Rs."+Balance);
+            amount = Integer.parseInt(cnsl.readLine("Enter amount to withdraw : ").strip());
+            Integer temp = Balance - amount;
+            update_logDB(username,password,this.Name,temp.toString());
+            this.Balance -= amount;
+            System.out.println("Current Balance Rs."+Balance);
+            return 1;
+
+        } 
+        
+        else if (choice.equals("cancel")) {
+
+            System.out.println("Previous Balance Rs."+Balance);
+            amount = Integer.parseInt(cnsl.readLine("Enter amount to add : ").strip());
+            Integer temp = Balance + amount;
+            update_logDB(username,password,this.Name,temp.toString());
+            this.Balance += amount;
+            System.out.println("Current Balance Rs."+Balance);
+            return 1;
+
+        }
+        
+        else{
+
+            System.out.println("Invalid choice...Type \"add\" or \"deduct\"!");
+            update_balance();
+
+        }
+        
+        
+        return 0;
+    }
+
     // Check Balance
     public Integer check_balance(){
 
@@ -306,7 +356,27 @@ public class Customer implements Serializable{
 
                     Booking b = new Booking(travel_date, from, to);
                     // Bookings done
+                    Path path1 = Paths.get(current_dir + "\\flights.txt");
+                    float weight = 0;
+                    int adult=0,child =0;
+                    for (Map.Entry<String, String> entry : passengers.entrySet()) {
+                        if(Integer.parseInt(entry.getValue())<10){
+                            child++;
+                        }else{
+                            adult++;
+                        }
+        
+                    }
+                    weight = adult + (child/2);
+                    List<String> fileContent1 = new ArrayList<>(Files.readAllLines(path1, StandardCharsets.UTF_8));
+                    for(int i=0;i<fileContent1.size();i++){
+                        if(fileContent1.get(i).contains(code)){
+                            String[] str = fileContent1.get(i).split(",");
+                            this.update_balance("book", Integer.parseInt(str[4]), weight);
+                        }
+                    }
                     b.seat_ops(code, "book", this, passengers);
+
                 }
 
                 // Booking already done for few members
@@ -327,6 +397,7 @@ public class Customer implements Serializable{
                         
                         else if(choice.equals("M")){
                             // Do something
+                            Main.Succesful_login(this);
                         }
 
                         else if(choice.equals("Q")){
@@ -384,6 +455,7 @@ public class Customer implements Serializable{
                     
                     else if(choice.equals("M")){
                         // Do something
+                        Main.Succesful_login(this);
                     }
 
                     else if(choice.equals("Q")){
@@ -461,6 +533,7 @@ public class Customer implements Serializable{
                     
                     else if(choice.equals("M")){
                         // Do something
+                        Main.Succesful_login(this);
                     }
 
                     else if(choice.equals("Q")){
@@ -517,6 +590,8 @@ public class Customer implements Serializable{
 
             else if(choice.equals("M")){
                 // Do something
+                Main.Succesful_login(this);
+                
             }
 
             else if(choice.equals("Q")){

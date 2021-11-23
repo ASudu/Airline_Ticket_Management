@@ -59,6 +59,7 @@ public class Main {
                 
                 System.out.println("*******************   LOG IN    *******************");
                 Customer c = Login.LOG_IN();
+                Succesful_login(c);
                 
 
                 // Clears terminal
@@ -67,7 +68,38 @@ public class Main {
                 
                 System.out.println("**********************   DASHBOARD    **********************");
 
-                System.out.println("Welcome Mr./Mrs."+c.Name);
+                
+            }
+            
+            else if(read.equals("S")){
+
+                // Clears terminal
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+
+                Login.SIGN_UP();
+                System.out.println("User account set up done !");
+                go_to_login_page();
+                
+            }
+            
+            else if(read.equals("Q")){
+
+                System.out.println("Exitting.......");
+                System.exit(0);
+
+            }
+            
+            else
+                System.out.println("Please give a valid input !");
+
+        }while(!read.equals("L") && !read.equals("S") && !read.equals("Q"));
+
+
+    }
+    public static void Succesful_login(Customer c)throws Exception{
+
+        System.out.println("Welcome Mr./Mrs."+c.Name);
                 System.out.println("------------------------------------------------");
                 System.out.println("Enter one of the following: ");
                 System.out.println("1. \"C\" to change credentials\n2. \"U\" to update balance\n3. \"B\" to book ticket\n4. \"V\" to view ticket\n5. \"E\" to cancel ticket\n6. \"Q\" to quit");
@@ -131,15 +163,15 @@ public class Main {
                         c.do_booking(); // Yet to define
                     }
                     
-                    // else if(read1.equals("V")){
+                    else if(read1.equals("V")){
 
-                    //     // Clears terminal
-                    //     System.out.print("\033[H\033[2J");
-                    //     System.out.flush();
+                        // Clears terminal
+                        System.out.print("\033[H\033[2J");
+                        System.out.flush();
                         
-                    //     System.out.println("*******************   VIEW TICKET    *******************");
-                    //     c.view_ticket();  // Yet to define
-                    // }
+                        System.out.println("*******************   VIEW TICKET    *******************");
+                        c.view_ticket();  // Yet to define
+                    }
 
                     else if(read1.equals("E")){
 
@@ -160,33 +192,7 @@ public class Main {
                     else
                         System.out.println("Please give a valid input !");
                 }while(!read1.equals("C") && !read1.equals("U") && !read1.equals("B") && !read1.equals("V") && !read1.equals("E") && !read1.equals("Q"));
-            }
-            
-            else if(read.equals("S")){
-
-                // Clears terminal
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-
-                Login.SIGN_UP();
-                System.out.println("User account set up done !");
-                go_to_login_page();
-                
-            }
-            
-            else if(read.equals("Q")){
-
-                System.out.println("Exitting.......");
-                System.exit(0);
-
-            }
-            
-            else
-                System.out.println("Please give a valid input !");
-
-        }while(!read.equals("L") && !read.equals("S") && !read.equals("Q"));
-
-
+        
     }
 }
 
