@@ -12,8 +12,6 @@ public class City {
 
     static String current_dir = System.getProperty("user.dir");
     final static String Home_city = "Delhi";
-    // Map<String, Point> temp = new HashMap<String, Point>();
-    // temp.add_City("Delhi", new Point(0,0));
     static Map<Object, Object> cities = Stream.of(new Object[][] { 
         { "Delhi", new Point(0,0) }, 
         { "Mumbai", new Point(-2000,-4000) },

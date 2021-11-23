@@ -291,8 +291,6 @@ public class Customer implements Serializable{
 
 
         // Check if booking exists
-        BufferedReader br = null;
-
         try {
 
             Path path = Paths.get(current_dir + "\\flight_seats.txt");
@@ -325,6 +323,53 @@ public class Customer implements Serializable{
             System.out.println(e.toString());
         }
         Booking b = new Booking(travel_date, from, to);
+
+        // Print the bookings that exist
+        System.out.println("Bookings under " + this.username);
+        for (Map.Entry<String, String> entry : passengers.entrySet())
+            System.out.println(entry.getKey() + ": " + entry.getValue() );
+        
+        String choice = cnsl.readLine("Enter: 1. \"C\" to continue\n2. \"M\" to go to main page\n3.\"Q\" to quit");
+        
+        if(choice.equals("C")){
+            int count = Integer.parseInt(cnsl.readLine("Enter number of seats to be cancelled: "));
+
+            if(count <= passengers.size()){
+
+                String[] cancel_ppl = new String[count];
+                System.out.println("Enter names of passengers who seats are to be cancelled: \n");
+
+                for(int i = 0; i<count; i++)
+                    cancel_ppl[i] = cnsl.readLine();
+                
+                for (Map.Entry<String, String> entry : passengers.entrySet()){
+
+                    if(!Arrays.asList(cancel_ppl).contains(entry.getKey()))
+                        passengers.remove(entry.getKey());
+                }
+                    
+            }
+
+            else{
+                System.out.println("You have booked only " + Integer.toString(passengers.size()) + " !!!!!!");
+                cancel_ticket();
+            }
+        }
+
+        else if(choice.equals("M")){
+            // Do something
+        }
+
+        else if(choice.equals("Q")){
+            System.out.println("Exiting....");
+            System.exit(0);
+        }
+
+        else{
+            System.out.println("Invalid input");
+            cancel_ticket();
+        }
+
         // Cancellation done
         b.seat_ops(code, "cancel", this, passengers);
     }
