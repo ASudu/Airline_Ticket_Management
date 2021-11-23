@@ -46,21 +46,24 @@ public class BoardingPass{
 
                 String temp = fileContent.get(i); // Copy existing contents of the line to temp
                 if(temp.contains(booking_name)){
+
                     String seat_users = fileContent.get(i).split("@")[1]; //get all the seat users
                     String[] getPassengers = seat_users.split(","); //separate each getPassengers : "seat-no:username$PassengerName"
                     for(String s:getPassengers){
                         if(s.contains(booking_name)){       //if seat-no:username$PassengerName contains username
+
                             String[] op = s.split(":");
                             String passenger_name = op[1].split("$")[1];
                             String passenger_Seat = op[0];
 
                             System.out.println("***********************************************************************");
-                            System.out.println("THANK YOU FOR FLYING WITH " + airline);
+                            System.out.println("THANK YOU FOR FLYING WITH " + airline + "!!");
                             System.out.println("   CODE: " + this.flight_code);
                             System.out.println("   FROM: " + from + "            TO: " + to);
                             System.out.println("   TIME: " + time);
                             System.out.println("   PASSENGER NAME: " + passenger_name + "  SEAT NUMBER: " + passenger_Seat);
                             System.out.println("***********************************************************************");
+
                         }
                     }
                     break;
