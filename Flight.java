@@ -34,7 +34,6 @@ public class Flight{
     }
 
 
-
     // Parameterized constructor
     public Flight(String from, String to, int fare, String flight_code, String time, String Airline) {
         this.from = from;

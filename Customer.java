@@ -358,6 +358,8 @@ public class Customer implements Serializable{
                     // Bookings done
                     Path path1 = Paths.get(current_dir + "\\flights.txt");
                     float weight = 0;
+
+                    // For assigning fare
                     int adult=0,child =0;
                     for (Map.Entry<String, String> entry : passengers.entrySet()) {
                         if(Integer.parseInt(entry.getValue())<10){
@@ -376,6 +378,12 @@ public class Customer implements Serializable{
                         }
                     }
                     b.seat_ops(code, "book", this, passengers);
+
+                    String[] arr = get_flight_details(code);
+                    int amount = (int) weight*Integer.parseInt(arr[4]);
+                    update_flight_amount(code, amount);
+                    
+
 
                 }
 
@@ -569,7 +577,7 @@ public class Customer implements Serializable{
                 if(count <= passengers.size()){
 
                     String[] cancel_ppl = new String[count];
-                    System.out.println("Enter names of passengers who seats are to be cancelled: \n");
+                    System.out.println("Enter names of passengers whose seats are to be cancelled: \n");
 
                     for(int i = 0; i<count; i++)
                         cancel_ppl[i] = cnsl.readLine();
@@ -583,7 +591,7 @@ public class Customer implements Serializable{
                 }
 
                 else{
-                    System.out.println("You have booked only " + Integer.toString(passengers.size()) + " !!!!!!");
+                    System.out.println("You have booked only for " + Integer.toString(passengers.size()) + " passengers !!!!!!");
                     cancel_ticket();
                 }
             }
@@ -604,6 +612,84 @@ public class Customer implements Serializable{
         }while(!choice.equals("B") && !choice.equals("M") && !choice.equals("Q"));
 
         // Cancellation done
+
+
         b.seat_ops(code, "cancel", this, passengers);
+
+        // After cancelling is done get age to refund amount according to age
+        Integer amount = 0;
+        Path path1 = Paths.get(current_dir + "\\flights.txt");
+        List<String> fileContent1 = new ArrayList<>(Files.readAllLines(path1, StandardCharsets.UTF_8));
+        for(int i=0;i<fileContent1.size();i++){
+            if(fileContent1.get(i).contains(code)){
+                String[] str = fileContent1.get(i).split(",");
+                amount += Integer.parseInt(str[4]);
+                break;
+            }
+        }
+        
+        float cumm_weight = 0;
+        //Seats cancelled
+        for (Map.Entry<String, String> entry : passengers.entrySet()) {
+             Integer age = Integer.parseInt(cnsl.readLine("Enter age of the Passenger : "+entry.getKey()));
+             float weight = (age<10)? (float)0.5 : (float)1.0;
+             cumm_weight += weight;
+             this.update_balance("cancel", amount, weight);
+
+        }
+        System.out.println("Seats cancelled sucesfully");
+
+        String[] arr = get_flight_details(code);
+        int amount1 = (int) cumm_weight*Integer.parseInt(arr[4]);
+        update_flight_amount(code, -1*amount1);
+
+
     }
+
+    static String[] get_flight_details(String code) throws IOException{
+        String[] temp = null;
+
+        Path p1 = Paths.get(current_dir + "\\flights.txt");
+        List<String> fileContent1 = new ArrayList<>(Files.readAllLines(p1, StandardCharsets.UTF_8));
+        for(int k = 0; k < fileContent1.size(); k++){
+
+            temp = fileContent1.get(k).split(",");
+
+            if(temp[1].equals(code)){
+               return temp;
+            }
+        }
+        return temp;
+    }
+
+    static void update_flight_amount(String code, int amount)throws Exception{
+
+        Path path = Paths.get(current_dir + "\\flights.txt");
+        List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
+
+        for (int i = 0; i < fileContent.size(); i++) {
+
+            if (fileContent.get(i).contains(code)) {
+
+                String airline = fileContent.get(i).split(",")[0];
+
+                if(airline.equals("SpiceJet"))
+                    SpiceJet.update_account(amount);
+
+                else if(airline.equals("Indigo"))
+                    Indigo.update_account(amount);
+
+                else if(airline.equals("GoAir"))
+                    GoAir.update_account(amount);
+                
+                else if(airline.equals("Vistara"))
+                    Vistara.update_account(amount);
+                
+
+            }
+
+        }
+
+    }
+
 }
