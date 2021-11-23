@@ -263,7 +263,7 @@ public class Customer implements Serializable{
         for(int i = 0; i< n; i++){
 
             passengers.put(cnsl.readLine("Enter name of passenger" + Integer.toString(i+1) + ": "), 
-                            "");
+            cnsl.readLine("Enter age of passenger" + Integer.toString(i+1) + ": "));
         }
         
         Booking b = new Booking(travel_date, from, to);
@@ -319,7 +319,8 @@ public class Customer implements Serializable{
                     }
                 }
             }
-            }
+        }
+
          catch (Exception e) {
             System.out.println(e.toString());
         }

@@ -17,7 +17,6 @@ public class Seats implements Serializable {
     Flight temp_flight = new Flight();
     int seats_available = temp_flight.getFree_seats();
     String flightCode; // Can't use tem_flight.flight_code since it is public
-    // int num_user;
 
     Seats(String flightCode)throws Exception{
 
