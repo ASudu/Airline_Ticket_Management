@@ -200,8 +200,7 @@ public class Seats implements Serializable {
             else
                 System.out.println("Please enter a valid input");
         }
-        
-=======
+
         // Window seat to be booked
         if(read.equals("W")){
 
