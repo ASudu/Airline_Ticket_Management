@@ -13,7 +13,7 @@ public class Customer implements Serializable{
     static File flight_seats = new File(current_dir + "\\flight_seats.txt");
     static Console cnsl = System.console();
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    
+
     //-------------------------------------------------Variables------------------------------------------------------//
     public String Name;
     public String username;
@@ -49,18 +49,17 @@ public class Customer implements Serializable{
     }
 
     //--------------------------------------------------Methods-------------------------------------------------------//
-    
-      // An option to change the user credentials
-      public void change_credentials()throws Exception{
-       
+
+    // An option to change the user credentials
+    public void change_credentials()throws Exception{
+
         System.out.println("***************   CHANGE CREDENTIALS    ***************");
 
         String n, u, p, ad;
         n = cnsl.readLine("Enter your new name : ").strip();
         u = cnsl.readLine("Enter your new username : ").strip();
 
-        if(Login.unique_user(u)) {
-
+        if(Login.unique_user(u,"Customer")) {
             p = String.valueOf(cnsl.readPassword("Enter password : "));
             String p1 = String.valueOf(cnsl.readPassword("Confirm password : "));
 
@@ -81,10 +80,11 @@ public class Customer implements Serializable{
                 change_credentials();
 
             }
-            
+
 
         }
-        
+
+
         else {
 
             System.out.println("Username already exists!");
@@ -96,6 +96,7 @@ public class Customer implements Serializable{
     }
 
     // Update Balance to be called during setting up customer after login
+
     public int update_balance(String username, String password,Integer amount,String choice) { 
 
         if (this.username.equals(username) && this.password.equals(password)) {
@@ -112,7 +113,7 @@ public class Customer implements Serializable{
 
     // Update balance to be called during Actual payments
     public int update_balance() throws Exception{
-       
+
         System.out.println("*****************   UPDATE BALANCE    *****************");
 
         String username;
@@ -122,7 +123,7 @@ public class Customer implements Serializable{
 
         username = this.username;
         password = this.get_password();
-        
+
         choice = cnsl.readLine("Want to add money then type add or deduct : ").strip();
 
         if (choice.equals("deduct")) {
@@ -135,8 +136,9 @@ public class Customer implements Serializable{
             System.out.println("Current Balance Rs."+Balance);
             return 1;
 
+
         } 
-        
+
         else if (choice.equals("add")) {
 
             System.out.println("Previous Balance Rs."+Balance);
@@ -148,33 +150,30 @@ public class Customer implements Serializable{
             return 1;
 
         }
-        
+
         else{
 
             System.out.println("Invalid choice...Type \"add\" or \"deduct\"!");
             update_balance();
 
         }
-        
-        
+
         return 0;
     }
 
     public int update_balance(String choice,Integer amount,float weight) throws Exception{
-       
+
         System.out.println("*****************   UPDATE BALANCE    *****************");
 
         String username;
         String password;
 
-
-        
+      
 
         username = this.username;
         password = this.get_password();
         
         
-
         if (choice.equals("book")) {
 
             System.out.println("Previous Balance Rs."+Balance);
@@ -185,8 +184,9 @@ public class Customer implements Serializable{
             System.out.println("Current Balance Rs."+Balance);
             return 1;
 
-        } 
-        
+        }
+
+
         else if (choice.equals("cancel")) {
 
             System.out.println("Previous Balance Rs."+Balance);
@@ -198,24 +198,24 @@ public class Customer implements Serializable{
             return 1;
 
         }
-        
+
         else{
 
             System.out.println("Invalid choice...Type \"add\" or \"deduct\"!");
             update_balance();
 
         }
-        
-        
+
         return 0;
     }
 
     // Check Balance
     public Integer check_balance(){
 
-            System.out.println("Current Balance is Rs."+Balance);
-            Integer bal = Balance;
-            return bal;
+
+        System.out.println("Current Balance is Rs."+Balance);
+        Integer bal = Balance;
+        return bal;
     }
 
     // Make Payment
@@ -235,7 +235,8 @@ public class Customer implements Serializable{
     }
 
     public void update_logDB(String u,String p,String n,String b)throws Exception{
-        
+
+
         // First find the user by username :(unique identity)
         Path path = Paths.get(current_dir + "\\login_customerDB.txt");
 
@@ -260,9 +261,11 @@ public class Customer implements Serializable{
         // Clears terminal
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        
+
+
         City.display_list_of_cities();
-        
+
+
         // Get date of travel
         String travel_date = cnsl.readLine("Enter date of travel (format: DD-MM-YYY): ");
         String from = cnsl.readLine("Travel from: ");
@@ -291,16 +294,17 @@ public class Customer implements Serializable{
 
                             for(int j = 0; j < 13 - fields[i].length(); j++)
                                 spaces += " ";
-                            
+
                             System.out.println(fields[i] + spaces);
                         }
 
                         System.out.println("\n");
                     }
-                        
+
+
                 }
-                
-                
+
+
             }
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -312,8 +316,9 @@ public class Customer implements Serializable{
         TreeMap<String, String> passengers = new TreeMap<String, String>();
         for(int i = 0; i< n; i++){
 
-            passengers.put(cnsl.readLine("Enter name of passenger" + Integer.toString(i+1) + ": "), 
-            cnsl.readLine("Enter age of passenger" + Integer.toString(i+1) + ": "));
+            passengers.put(cnsl.readLine("Enter name of passenger" + Integer.toString(i+1) + ": "),
+                    cnsl.readLine("Enter age of passenger" + Integer.toString(i+1) + ": "));
+
         }
 
         int already_booked = -1;
@@ -333,7 +338,7 @@ public class Customer implements Serializable{
 
                         String seat_users = fileContent.get(k).split("@")[1]; //get all the seat users
                         String[] getPassengers = seat_users.split(","); //separate each getPassengers : "seat-no:username$PassengerName"
-                        
+
                         for(String s:getPassengers){
                             if(s.contains(this.username)){       //if seat-no:username$PassengerName contains username
                                 String[] op = s.split(":");
@@ -342,7 +347,7 @@ public class Customer implements Serializable{
                                     already_booked = 1;
                                     passenger_names.add(passenger_name);
                                 }
-                                
+
                                 else
                                     already_booked = 0;
                             }
@@ -367,7 +372,7 @@ public class Customer implements Serializable{
                         }else{
                             adult++;
                         }
-        
+
                     }
                     weight = adult + (child/2);
                     List<String> fileContent1 = new ArrayList<>(Files.readAllLines(path1, StandardCharsets.UTF_8));
@@ -382,7 +387,7 @@ public class Customer implements Serializable{
                     String[] arr = get_flight_details(code);
                     int amount = (int) weight*Integer.parseInt(arr[4]);
                     update_flight_amount(code, amount);
-                    
+
 
 
                 }
@@ -402,7 +407,7 @@ public class Customer implements Serializable{
 
                         if(choice.equals("R"))
                             do_booking();
-                        
+
                         else if(choice.equals("M")){
                             // Do something
                             Main.Succesful_login(this);
@@ -430,9 +435,11 @@ public class Customer implements Serializable{
         System.out.print("\033[H\033[2J");
         System.out.flush();
         int booking_exists = 0;
-        //Get details of the flight 
+
+        //Get details of the flight
         BoardingPass bp;
-    
+
+
         try {
             String fc="";
 
@@ -443,6 +450,7 @@ public class Customer implements Serializable{
 
                 String get_code = fileContent.get(k).split("@")[0];
                 String temp = fileContent.get(k); // Copy existing contents of the line to temp
+
                     if(temp.contains(this.username)){
                         fc = get_code;
                         booking_exists = 1;
@@ -451,6 +459,15 @@ public class Customer implements Serializable{
                         break;
                     }
             
+
+                if(temp.contains(this.username)){
+                    fc = get_code;
+                    booking_exists = 1;
+                    bp = new BoardingPass(this.username, fc);
+                    bp.display_boarding_pass();
+                    break;
+                }
+
             }
             if(booking_exists == 0){
                 System.out.println("Booking doesn't exists in this username");
@@ -460,7 +477,7 @@ public class Customer implements Serializable{
 
                     if(choice.equals("B"))
                         do_booking();
-                    
+
                     else if(choice.equals("M")){
                         // Do something
                         Main.Succesful_login(this);
@@ -472,13 +489,14 @@ public class Customer implements Serializable{
                     }
 
                     else
-                    System.out.println("Please enter a valid input");
+                        System.out.println("Please enter a valid input");
 
                 }while(!choice.equals("B") && !choice.equals("M") && !choice.equals("Q"));
             }
-            }catch(Exception e ){
-                System.out.println(e.toString());
-            }
+        }catch(Exception e ){
+            System.out.println(e.toString());
+        }
+
 
 
 
@@ -489,7 +507,7 @@ public class Customer implements Serializable{
         // Clears terminal
         System.out.print("\033[H\033[2J");
         System.out.flush();
-      
+
         // Get date of travel
         String travel_date = cnsl.readLine("Enter date of travel (format: DD-MM-YYY): ");
         String from = cnsl.readLine("Travel from: ");
@@ -538,7 +556,7 @@ public class Customer implements Serializable{
 
                     if(choice.equals("B"))
                         do_booking();
-                    
+
                     else if(choice.equals("M")){
                         // Do something
                         Main.Succesful_login(this);
@@ -550,13 +568,15 @@ public class Customer implements Serializable{
                     }
 
                     else
-                    System.out.println("Please enter a valid input");
+                        System.out.println("Please enter a valid input");
+
 
                 }while(!choice.equals("B") && !choice.equals("M") && !choice.equals("Q"));
             }
         }
 
-         catch (Exception e) {
+        catch (Exception e) {
+
             System.out.println(e.toString());
         }
         Booking b = new Booking(travel_date, from, to);
@@ -567,10 +587,12 @@ public class Customer implements Serializable{
             System.out.println(entry.getKey() + ": " + entry.getValue() );
 
         String choice = "";
-        
+
+
         do{
             choice = cnsl.readLine("Enter: 1. \"C\" to continue\n2. \"M\" to go to main page\n3.\"Q\" to quit");
-            
+
+
             if(choice.equals("C")){
                 int count = Integer.parseInt(cnsl.readLine("Enter number of seats to be cancelled: "));
 
@@ -581,13 +603,13 @@ public class Customer implements Serializable{
 
                     for(int i = 0; i<count; i++)
                         cancel_ppl[i] = cnsl.readLine();
-                    
+
                     for (Map.Entry<String, String> entry : passengers.entrySet()){
 
                         if(!Arrays.asList(cancel_ppl).contains(entry.getKey()))
                             passengers.remove(entry.getKey());
                     }
-                        
+
                 }
 
                 else{
@@ -599,7 +621,7 @@ public class Customer implements Serializable{
             else if(choice.equals("M")){
                 // Do something
                 Main.Succesful_login(this);
-                
+
             }
 
             else if(choice.equals("Q")){
@@ -627,14 +649,16 @@ public class Customer implements Serializable{
                 break;
             }
         }
-        
+
+
         float cumm_weight = 0;
         //Seats cancelled
         for (Map.Entry<String, String> entry : passengers.entrySet()) {
-             Integer age = Integer.parseInt(cnsl.readLine("Enter age of the Passenger : "+entry.getKey()));
-             float weight = (age<10)? (float)0.5 : (float)1.0;
-             cumm_weight += weight;
-             this.update_balance("cancel", amount, weight);
+            Integer age = Integer.parseInt(cnsl.readLine("Enter age of the Passenger : "+entry.getKey()));
+            float weight = (age<10)? (float)0.5 : (float)1.0;
+            cumm_weight += weight;
+            this.update_balance("cancel", amount, weight);
+
 
         }
         System.out.println("Seats cancelled sucesfully");
@@ -656,7 +680,9 @@ public class Customer implements Serializable{
             temp = fileContent1.get(k).split(",");
 
             if(temp[1].equals(code)){
+
                return temp;
+
             }
         }
         return temp;
@@ -681,10 +707,11 @@ public class Customer implements Serializable{
 
                 else if(airline.equals("GoAir"))
                     GoAir.update_account(amount);
-                
+
                 else if(airline.equals("Vistara"))
                     Vistara.update_account(amount);
-                
+
+
 
             }
 
@@ -692,4 +719,6 @@ public class Customer implements Serializable{
 
     }
 
+
 }
+

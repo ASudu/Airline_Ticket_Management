@@ -16,8 +16,9 @@ public class City {
     private String airport;
     private Point coordinates;
 
-    // static Map<Object, Object> cities = Stream.of(new Object[][] { 
-    //     { "Delhi", new Point(0,0) }, 
+
+    // static Map<Object, Object> cities = Stream.of(new Object[][] {
+    //     { "Delhi", new Point(0,0) },
     //     { "Mumbai", new Point(-2000,-4000) },
     //     { "Kolkata", new Point(2000,-3000)},
     //     { "Bhubaneshwar", new Point(1500,-3500)},
@@ -28,7 +29,8 @@ public class City {
     //     { "Bhopal", new Point(0,-2000)},
     //     { "Gangtok", new Point(500,0)}
     // }).collect(Collectors.collectingAndThen(
-    //     Collectors.toMap(data -> data[0], data -> data[1]), 
+
+    //     Collectors.toMap(data -> data[0], data -> data[1]),
     //     Collections::<Object, Object> unmodifiableMap));
 
     City(){
@@ -54,20 +56,21 @@ public class City {
     static City c9 = new City("Bhopal", "BHO", new Point(0,-2000));
     static City c10 = new City("Chandigarh", "IXE", new Point(-200,0));
 
-    static Map<Object, Object> cities = Stream.of(new Object[][] { 
-        { c1, c1.coordinates }, 
-        { c2, c2.coordinates },
-        { c3, c3.coordinates},
-        { c4, c4.coordinates},
-        { c5, c5.coordinates},
-        { c6, c6.coordinates},
-        { c7, c7.coordinates},
-        { c8, c8.coordinates},
-        { c9, c9.coordinates},
-        { c10, c10.coordinates}
+
+    static Map<Object, Object> cities = Stream.of(new Object[][] {
+            { c1, c1.coordinates },
+            { c2, c2.coordinates },
+            { c3, c3.coordinates},
+            { c4, c4.coordinates},
+            { c5, c5.coordinates},
+            { c6, c6.coordinates},
+            { c7, c7.coordinates},
+            { c8, c8.coordinates},
+            { c9, c9.coordinates},
+            { c10, c10.coordinates}
     }).collect(Collectors.collectingAndThen(
-        Collectors.toMap(data -> data[0], data -> data[1]), 
-        Collections::<Object, Object> unmodifiableMap));
+            Collectors.toMap(data -> data[0], data -> data[1]),
+            Collections::<Object, Object> unmodifiableMap));
 
     public String getName() {
         return this.name;
@@ -92,7 +95,9 @@ public class City {
     public void setCoordinates(Point coordinates) {
         this.coordinates = coordinates;
     }
-    
+
+
+
 
     int cal_dist(String from, String to){
         Point p1 = (Point) cities.get(from);
@@ -102,7 +107,7 @@ public class City {
 
         return dist;
     }
-    
+
     void construct_file(){
 
         // File city_file = new File(current_dir + "\\cities.txt");
@@ -159,7 +164,9 @@ public class City {
                 display = str.split(",");
                 String space = "";
                 for(int i=0;i<13-display[0].length(); i++)
-                    space += " ";   
+
+                    space += " ";
+
                 System.out.println(row + ". " + display[0]+ space + "|  " + display[1] + "\n");
                 row++;
             }
@@ -193,11 +200,12 @@ public class City {
 
         return c1;
     }
-    
+   
     
 
 
     
+
 }
 
 class Point extends Object{
@@ -216,9 +224,11 @@ class Point extends Object{
     }
 
 }
- class Driver{
-     public static void main(String[] args){
+
+class Driver{
+    public static void main(String[] args){
         //  c.construct_file();
         City.display_list_of_cities();
-     }
- }
+    }
+}
+

@@ -73,7 +73,11 @@ public class Flight{
     public int getFare() {
         return this.fare;
     }
-
+    public void setAirline(Staff s){
+        if(s.designation.equals("Sales Head")){
+            this.Airline = s.Airline;
+        }
+    }
     public void update_Fare(int fare) {
         this.fare = fare;
     }
@@ -103,7 +107,6 @@ public class Flight{
         this.time = time;
     }
 
-    
     // public void update_Customers_booked(HashSet<Customer> customers_booked) {
     //     this.customers_booked = customers_booked;
     // }
@@ -135,6 +138,7 @@ public class Flight{
         for (int i = 0; i < fileContent.size(); i++) {
 
             if (fileContent.get(i).equals(this.Airline+","+this.flight_code+","+this.from+","+this.to+","+Integer.toString(this.fare)+","+Integer.toString(this.free_seats)+","+
+
              "," + this.time + "," + this.flight_status)) {
 
                 fileContent.set(i, airline+","+code+","+from+","+to+","+fare+","+free_seats+","+ time + "," + status);
@@ -149,7 +153,7 @@ public class Flight{
 
     }
 
-   
+
 }
 
 class Airline{
@@ -169,7 +173,8 @@ class Airline{
     }
 
     // Only Sales Head of the Airline can add flights into the system
-    public void add_Flights(Staff s,ArrayList<Flight> flights) {
+
+    public void add_Flights(Staff s,ArrayList<Flight> flights) throws Exception{
         if(s.designation.equals("Sales Head")){
             // this.flights.addAll(flights);
 
@@ -178,81 +183,91 @@ class Airline{
                 try {
                     FileWriter fw = new FileWriter(flights_file, true);
                     br1 = new BufferedWriter(fw);
-    
+
+
                     for(Flight flight_obj : flights){
-    
+
                         // //  For testing
-                        // System.out.println(flight_obj.getAirline() + "," + flight_obj.getFlight_code() + "," + flight_obj.getFrom() + "," 
-                        // + flight_obj.getTo() + "," + Integer.toString(flight_obj.getFare()) + "," 
+                        // System.out.println(flight_obj.getAirline() + "," + flight_obj.getFlight_code() + "," + flight_obj.getFrom() + ","
+                        // + flight_obj.getTo() + "," + Integer.toString(flight_obj.getFare()) + ","
                         // + Integer.toString(flight_obj.getFree_seats()) + "," + flight_obj.get_time() + "," + flight_obj.getFlight_status() + '\n');
-                        
-                        fw.write(flight_obj.getAirline() + "," + flight_obj.getFlight_code() + "," + flight_obj.getFrom() + "," 
-                        + flight_obj.getTo() + "," + Integer.toString(flight_obj.getFare()) + "," 
-                        + Integer.toString(flight_obj.getFree_seats()) + "," + flight_obj.get_time() + "," + flight_obj.getFlight_status() + '\n');
-    
+
+                        fw.write(flight_obj.getAirline() + "," + flight_obj.getFlight_code() + "," + flight_obj.getFrom() + ","
+                                + flight_obj.getTo() + "," + Integer.toString(flight_obj.getFare()) + ","
+                                + Integer.toString(flight_obj.getFree_seats()) + "," + flight_obj.get_time() + "," + flight_obj.getFlight_status() + '\n');
+
                     }
-    
+
                     fw.close();
-    
-    
+
+
                 } catch (Exception e) {
                     System.out.println(e.toString());
+                    System.out.println("Some error was encountered");
+                    Main.Staff_Login(s);
+
                 }
 
             }
 
             else{
                 System.out.println("You can't add flights of different airlines!....");
+
+                Main.Staff_Login(s);
             }
 
-           
         }
 
         else{
             System.out.println("Only Sales Head can add flights!");
+            Main.Staff_Login(s);
         }
-        
+
     }
 
     // Only Sales Head of the Airline can add flights into the system
-    public void add_Flights(Staff s,Flight flight) {
+    public void add_Flights(Staff s,Flight flight) throws Exception {
         if(s.designation.equals("Sales Head")){
-            
             if(s.Airline.equals(flight.getAirline())){
 
                 try {
                     FileWriter fw = new FileWriter(flights_file);
                     br1 = new BufferedWriter(fw);
-    
+
+
                     // // For testing
-                    // System.out.println(flight.getAirline() + "," + flight.getFlight_code() + "," + flight.getFrom() + "," 
-                    //     + flight.getTo() + "," + Integer.toString(flight.getFare()) + "," 
+                    // System.out.println(flight.getAirline() + "," + flight.getFlight_code() + "," + flight.getFrom() + ","
+                    //     + flight.getTo() + "," + Integer.toString(flight.getFare()) + ","
                     //     + Integer.toString(flight.getFree_seats()) + "," + flight.get_time() + "," + flight.getFlight_status() + '\n');
-                    
-                    fw.write(flight.getAirline() + "," + flight.getFlight_code() + "," + flight.getFrom() + "," 
-                    + flight.getTo() + "," + Integer.toString(flight.getFare()) + "," 
-                    + Integer.toString(flight.getFree_seats()) + "," + flight.get_time() + "," + flight.getFlight_status() + '\n');
-                
+
+                    fw.write(flight.getAirline() + "," + flight.getFlight_code() + "," + flight.getFrom() + ","
+                            + flight.getTo() + "," + Integer.toString(flight.getFare()) + ","
+                            + Integer.toString(flight.getFree_seats()) + "," + flight.get_time() + "," + flight.getFlight_status() + '\n');
+
                     fw.close();
-    
-    
+
+
                 } catch (Exception e) {
                     System.out.println(e.toString());
+                    System.out.println("Some error was encountered");
+                    Main.Staff_Login(s);
+
                 }
 
             }
 
             else{
                 System.out.println("You can't add flights of different airlines!....");
+                Main.Staff_Login(s);
             }
 
-            
         }
 
         else{
             System.out.println("Only Sales Head can add flights!");
+            Main.Staff_Login(s);
         }
-        
+
     }
 
     public HashSet<String> getPlaces() {
@@ -305,7 +320,7 @@ class Airline{
                         count = 2;
                         break;
                     }
-                    
+
                 }
             }
 
@@ -320,7 +335,7 @@ class Airline{
                 if(update_field == "from"){
                     to_update.update_flights(words[0], words[1], new_value, words[3], words[4], words[5], words[6], words[7]);
                 }
-                
+
                 else if(update_field == "to"){
                     to_update.update_flights(words[0], words[1], words[2], new_value, words[4], words[5], words[6], words[7]);
                 }
@@ -346,6 +361,7 @@ class Airline{
             else if(count == 2){
 
                 System.out.println("You don't have access to update flight details of another airlines");
+                Main.Staff_Login(s);
 
             }
 
@@ -353,6 +369,7 @@ class Airline{
             else{
 
                 System.out.println("Flight with entered code doesn't exist");
+                Main.Staff_Login(s);
 
             }
         }
@@ -360,8 +377,9 @@ class Airline{
         catch(FileNotFoundException e){
 
             System.out.println(e.toString());
+            Main.Staff_Login(s);
 
-        }    
+        }
     }
 
 }
@@ -380,7 +398,7 @@ class SpiceJet extends Airline{
         this.flights.add(new Flight("Delhi", "Chennai", 2500, code + " 0001", "0730 - 1000", name));
         this.flights.add(new Flight("Delhi", "Bhubeneshwar", 1500, code + " 0002", "0800 - 1000", name));
         // this.staffs.add(); Add CEO alone
-        
+
     }
 
     //--------------------------------------------Getters and setters---------------------------------------------//
@@ -400,7 +418,7 @@ class SpiceJet extends Airline{
         return account;
     }
     //------------------------------------------------------------------------------------------------------------//
-        
+
 }
 
 class Indigo extends Airline{
@@ -454,7 +472,7 @@ class AirIndia extends Airline{
         this.flights.add(new Flight("Mumbai", "Chennai", 1000, code + " 0001", "1200 - 1400", name));
         this.flights.add(new Flight("Mumbai", "Bhubeneshwar", 1500, code + " 0002", "1300 - 1530", name));
         // this.staffs.add(); Add CEO alone
-        
+
     }
 
     //--------------------------------------------Getters and setters---------------------------------------------//
@@ -491,7 +509,7 @@ class GoAir extends Airline{
         this.flights.add(new Flight("Chennai", "Pune", 1500, code + " 0001", "1500 - 1700", name));
         this.flights.add(new Flight("Chennai", "Bhubeneshwar", 1500, code + " 0002", "1330 - 1530", name));
         // this.staffs.add(); Add CEO alone
-        
+
     }
 
     //--------------------------------------------Getters and setters---------------------------------------------//
@@ -528,7 +546,7 @@ class Vistara extends Airline{
         this.flights.add(new Flight("Hyderabad", "Delhi", 3000, code + " 0001", "1630 - 1900", name));
         this.flights.add(new Flight("Hyderabad", "Bhubeneshwar", 2500, code + " 0002", "1530 - 1700", name));
         // this.staffs.add(); Add CEO alone
-        
+
     }
 
     //--------------------------------------------Getters and setters---------------------------------------------//
@@ -539,7 +557,7 @@ class Vistara extends Airline{
     public String getCode() {
         return this.code;
     }
-    
+
     public static void update_account(int amount){
         account += amount;
     }

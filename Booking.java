@@ -92,14 +92,16 @@ public class Booking {
 
 
         }
-        
+
         else if(op.equals("cancel")){
             for (Map.Entry<String, String> entry : passengers.entrySet())
                 s.cancel_seat(c, entry.getKey(), entry.getValue());
         }
 
-            
+
+
     }
-    
+
+
     //------------------------------------------------------------------------------------------------------------//
 }

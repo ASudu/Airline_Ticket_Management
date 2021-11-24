@@ -14,13 +14,16 @@ public class BoardingPass{
         this.flight_code = c;
     }
 
-    public void display_boarding_pass()throws Exception{
+
+    public int display_boarding_pass()throws Exception{
 
         Path path = Paths.get(current_dir + "\\flight_seats.txt");
         Path p1 = Paths.get(current_dir + "\\flights.txt");
 
         List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
         List<String> fileContent1 = new ArrayList<>(Files.readAllLines(p1, StandardCharsets.UTF_8));
+
+        int flag = 0;
 
         String from = City.Home_city;
         String to = "";
@@ -62,6 +65,9 @@ public class BoardingPass{
                             String passenger_name = op[1].split("$")[1];
                             String passenger_Seat = op[0];
 
+                            flag  = 1;
+
+
                             System.out.println("***********************************************************************");
                             System.out.println("THANK YOU FOR FLYING WITH " + airline + "!!");
                             System.out.println("   FLIGHT CODE: " + this.flight_code);
@@ -79,10 +85,15 @@ public class BoardingPass{
         }
 
 
-        
+
+    if(flag==0){
+        return 0;
+    }else
+        return 1;
 
     }
 
-    
+
 
 }
+
