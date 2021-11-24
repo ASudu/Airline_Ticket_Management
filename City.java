@@ -16,23 +16,6 @@ public class City {
     private String airport;
     private Point coordinates;
 
-
-    // static Map<Object, Object> cities = Stream.of(new Object[][] {
-    //     { "Delhi", new Point(0,0) },
-    //     { "Mumbai", new Point(-2000,-4000) },
-    //     { "Kolkata", new Point(2000,-3000)},
-    //     { "Bhubaneshwar", new Point(1500,-3500)},
-    //     { "Chennai", new Point(1000,-5000)},
-    //     { "Jharkhand", new Point(1000,-3000)},
-    //     { "Nagpur", new Point(-1500,-4000)},
-    //     { "Srinagar", new Point(0,500)},
-    //     { "Bhopal", new Point(0,-2000)},
-    //     { "Gangtok", new Point(500,0)}
-    // }).collect(Collectors.collectingAndThen(
-
-    //     Collectors.toMap(data -> data[0], data -> data[1]),
-    //     Collections::<Object, Object> unmodifiableMap));
-
     City(){
         this.name = this.Home_city;
         this.coordinates = new Point(0,0);
