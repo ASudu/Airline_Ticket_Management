@@ -9,7 +9,7 @@ public class Booking {
     private String from;
     private String to;
     private String seat_no = null;
-
+    static LogFile log_file = new LogFile();
 
     public Booking() {
     }
@@ -86,16 +86,27 @@ public class Booking {
         if(op.equals("book")){
 
             for (Map.Entry<String, String> entry : passengers.entrySet()) {
-                s.book_seat(c, entry.getKey());
+
+                System.out.println(entry.getKey());
+                // s.book_seat(c, entry.getKey());
+                log_file.append(c, "Ticket booked by " + c.username);
 
             }
+
+            System.out.println("Booking successful! Thank you!");
 
 
         }
 
         else if(op.equals("cancel")){
-            for (Map.Entry<String, String> entry : passengers.entrySet())
-                s.cancel_seat(c, entry.getKey(), entry.getValue());
+            for (Map.Entry<String, String> entry : passengers.entrySet()){
+
+                System.out.println(entry.getKey());
+                // s.cancel_seat(c, entry.getKey(), entry.getValue());
+                log_file.append(c, "Ticket cancelled by " + c.username);
+            }
+
+            System.out.println("Cancellation successful! Your money has been refunded successfully!");
         }
 
 

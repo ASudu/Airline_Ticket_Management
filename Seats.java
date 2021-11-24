@@ -8,7 +8,6 @@ import java.util.List;
 
 public class Seats implements Serializable {
     
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static String current_dir = System.getProperty("user.dir");
     static File flight_seats = new File(current_dir + "\\flight_seats.txt");
     static Console cnsl = System.console();
@@ -91,7 +90,7 @@ public class Seats implements Serializable {
         String seat_no = "";
 
 
-        while(!read.equals("W") && !read.equals("M") && !read.equals("A") && !read.equals("N") && !read.equals("Q")){
+        do{
 
             // Window seat to be booked
             if(read.equals("W")){
@@ -104,9 +103,7 @@ public class Seats implements Serializable {
                             update_flightDB(c,i,j,flightCode,name,"book");
 
                             System.out.println("Your seat number is : " +seat_index(i,j));
-                            seat_no = seat_no+seat_index(i,j);
-                            // c.seat_no = seat_index(i, j);
-                            //seat_matrix_user[i][j]=/* c.username */;
+                            seat_no = seat_no + seat_index(i,j);
                             counter =1;
                             temp_flight.setCustomers_booked(1);
                             String[] arr = get_flight_details(this.flightCode);
@@ -120,7 +117,7 @@ public class Seats implements Serializable {
             }
 
             // Middle seat to be booked
-            if(read.equals("M")){
+            else if(read.equals("M")){
 
                 for(int i =0;i<30;i++){
                     for(int j=0;j<6;j++){
@@ -130,9 +127,7 @@ public class Seats implements Serializable {
                             update_flightDB(c,i,j,flightCode,name,"book");
 
                             System.out.println("Your seat number is : " +seat_index(i,j));
-                            seat_no = seat_no+seat_index(i,j);
-                            // c.seat_no = seat_index(i, j);
-                            //seat_matrix_user[i][j]=/* c.username */;
+                            seat_no = seat_no + seat_index(i,j);
                             counter =1;
                             temp_flight.setCustomers_booked(1);
                             String[] arr = get_flight_details(this.flightCode);
@@ -146,7 +141,7 @@ public class Seats implements Serializable {
             }
 
             // Aisle seat to be booked
-            if(read.equals("A")){
+            else if(read.equals("A")){
 
                 for(int i =0;i<30;i++){
                     for(int j=0;j<6;j++){
@@ -156,9 +151,7 @@ public class Seats implements Serializable {
                             update_flightDB(c,i,j,flightCode,name,"book");
 
                             System.out.println("Your seat number is : " +seat_index(i,j));
-                            seat_no = seat_no+seat_index(i,j);
-                            // c.seat_no = seat_index(i, j);
-                            //seat_matrix_user[i][j]=/* c.username */;
+                            seat_no = seat_no + seat_index(i,j);
                             counter =1;
                             temp_flight.setCustomers_booked(1);
                             String[] arr = get_flight_details(this.flightCode);
@@ -178,9 +171,7 @@ public class Seats implements Serializable {
                             this.update_seats(i,j);
                             update_flightDB(c,i,j,flightCode,name,"book");
                             System.out.println("Your seat number is : " +seat_index(i,j));
-                            seat_no = seat_no+seat_index(i,j);
-                            // c.seat_no = seat_index(i, j);
-                            //seat_matrix_user[i][j]=/* c.username */;
+                            seat_no = seat_no + seat_index(i,j);
                             counter = 1;
                             temp_flight.setCustomers_booked(1);
                             String[] arr = get_flight_details(this.flightCode);
@@ -199,109 +190,8 @@ public class Seats implements Serializable {
 
             else
                 System.out.println("Please enter a valid input");
-        }
 
-        // Window seat to be booked
-        if(read.equals("W")){
-
-            for(int i =0;i<30;i++){
-                for(int j=0;j<6;j++){
-                    if((j==0||j==5) && (check_seat_vacant(i,j))){
-
-                        seat_matrix[i][j] = 1;
-                        update_flightDB(c,i,j,flightCode,name,"book");
-
-                        System.out.println("Your seat number is : " +seat_index(i,j));
-                        seat_no = seat_no+seat_index(i,j);
-                        // c.seat_no = seat_index(i, j);
-                        //seat_matrix_user[i][j]=/* c.username */;
-                        counter =1;
-                        temp_flight.setCustomers_booked(1);
-                        break;
-                    }
-                }
-                if(counter!=0)break;
-            }
-
-        }
-
-        // Middle seat to be booked
-        if(read.equals("M")){
-
-            for(int i =0;i<30;i++){
-                for(int j=0;j<6;j++){
-                    if((j==1||j==4) && (check_seat_vacant(i,j))){
-
-                        seat_matrix[i][j] = 1;
-                        update_flightDB(c,i,j,flightCode,name,"book");
-
-                        System.out.println("Your seat number is : " +seat_index(i,j));
-                        seat_no = seat_no+seat_index(i,j);
-                        // c.seat_no = seat_index(i, j);
-                        //seat_matrix_user[i][j]=/* c.username */;
-                        counter =1;
-                        temp_flight.setCustomers_booked(1);
-                        break;
-                    }
-                }
-                if(counter!=0)break;
-            }
-
-        }
-
-        // Window seat to be booked
-        if(read.equals("A")){
-
-            for(int i =0;i<30;i++){
-                for(int j=0;j<6;j++){
-                    if((j==2||j==3) && (check_seat_vacant(i,j))){
-
-                        seat_matrix[i][j] = 1;
-                        update_flightDB(c,i,j,flightCode,name,"book");
-
-                        System.out.println("Your seat number is : " +seat_index(i,j));
-                        seat_no = seat_no+seat_index(i,j);
-                        // c.seat_no = seat_index(i, j);
-                        //seat_matrix_user[i][j]=/* c.username */;
-                        counter =1;
-                        temp_flight.setCustomers_booked(1);
-                        break;
-                    }
-                }
-                if(counter!=0)break;
-            }
-
-        }
-        
-        else if(read.equals("N")){
-            for(int i=0;i<30;i++){
-                for(int j=0;j<6;j++){
-                    if(check_seat_vacant(i,j)){
-                        this.update_seats(i,j);
-                        update_flightDB(c,i,j,flightCode,name,"book");
-                        System.out.println("Your seat number is : " +seat_index(i,j));
-                        seat_no = seat_no+seat_index(i,j);
-                        // c.seat_no = seat_index(i, j);
-                        //seat_matrix_user[i][j]=/* c.username */;
-                        counter = 1;
-                        temp_flight.setCustomers_booked(1);
-                        break;
-                    }
-                }
-                if(counter!=0)break;
-            }
-        }
-        
-        else if(read.equals("Q")){
-            System.out.println("Exiting.....");
-            System.exit(0);
-        }
-
-        else{
-            System.out.println("Please enter a valid input");
-            book_seat(c,name);
-        }
-
+        }while(!read.equals("W") && !read.equals("M") && !read.equals("A") && !read.equals("N") && !read.equals("Q"));
 
         return seat_no;
 
@@ -380,96 +270,105 @@ public class Seats implements Serializable {
 
 
     void update_flightDB(Customer c,int i, int j,String code, String name, String choice)throws Exception{
-        FileWriter fw = new FileWriter(flight_seats,true);
 
-        // If this is the first seat being booked in that flight (entry doesn't exists in the file)
-        if(!code_exists(code) && choice.equals("book")) {
+        try{
+            FileWriter fw = new FileWriter(flight_seats,true);
 
-            fw.write(flightCode + "@" + seat_index(i, j) + ":" + c.username + "$" + name);
-            fw.close();
+            // If this is the first seat being booked in that flight (entry doesn't exists in the file)
+            if(!code_exists(code) && choice.equals("book")) {
 
-        }
-        
-        // Few seats in that flight have already been booked (entry exists in the file)
-        else if(code_exists(code) && choice.equals("book")){
-
-            // Updates seat number and username in flight_seats.txt
-            Path path = Paths.get(current_dir + "\\flight_seats.txt");
-            List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
-
-            for (int k = 0; k < fileContent.size(); k++) {
-
-                String get_code = fileContent.get(k).split("@")[0];
-                if(get_code.equals(code)) {
-
-                    String temp = fileContent.get(k); // Copy existing contents of the line to temp
-                    fileContent.set(k, temp +","+ seat_index(i, j) + ":" + c.username + "$" + name); // Modifying it and rewriting to list
-                    break;
-
-                }
+                fw.write(flightCode + "@" + seat_index(i, j) + ":" + c.username + "$" + name);
+                fw.close();
 
             }
-            // Writing modified list to the file
-            Files.write(path, fileContent, StandardCharsets.UTF_8);
+            
+            // Few seats in that flight have already been booked (entry exists in the file)
+            else if(code_exists(code) && choice.equals("book")){
 
-            // Updates number of free seats in that flight in flights.txt
-            Path path1 = Paths.get(current_dir + "\\flights.txt");
-            List<String> fileContent1 = new ArrayList<>(Files.readAllLines(path1, StandardCharsets.UTF_8));
+                // Updates seat number and username in flight_seats.txt
+                Path path = Paths.get(current_dir + "\\flight_seats.txt");
+                List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
 
-            for (int w = 0; w < fileContent1.size(); w++) {
+                for (int k = 0; k < fileContent.size(); k++) {
 
-                String[] line = fileContent1.get(w).split(",");
-                if(line[1].equals(code)) {
+                    String get_code = fileContent.get(k).split("@")[0];
+                    if(get_code.equals(code)) {
 
-                    // String temp = fileContent1.get(w); // Copy existing contents of the line to temp
-                    fileContent.set(w, line[0] + "," + line[1] + "," + line[2] + "," + line[3] + "," + line[4] + ","
-                    + Integer.toString(seats_available)  + "," + line[6] + "\n"); // Modifying it and rewriting to list
-                    break;
+                        String temp = fileContent.get(k); // Copy existing contents of the line to temp
+                        fileContent.set(k, temp +","+ seat_index(i, j) + ":" + c.username + "$" + name); // Modifying it and rewriting to list
+                        break;
+
+                    }
 
                 }
+                // Writing modified list to the file
+                Files.write(path, fileContent, StandardCharsets.UTF_8);
+
+                // Updates number of free seats in that flight in flights.txt
+                Path path1 = Paths.get(current_dir + "\\flights.txt");
+                List<String> fileContent1 = new ArrayList<>(Files.readAllLines(path1, StandardCharsets.UTF_8));
+
+                for (int w = 0; w < fileContent1.size(); w++) {
+
+                    String[] line = fileContent1.get(w).split(",");
+                    if(line[1].equals(code)) {
+
+                        // String temp = fileContent1.get(w); // Copy existing contents of the line to temp
+                        fileContent.set(w, line[0] + "," + line[1] + "," + line[2] + "," + line[3] + "," + line[4] + ","
+                        + Integer.toString(seats_available)  + "," + line[6] + "\n"); // Modifying it and rewriting to list
+                        break;
+
+                    }
+
+                }
+                // Writing modified list to the file
+                Files.write(path1, fileContent1, StandardCharsets.UTF_8);
 
             }
-            // Writing modified list to the file
-            Files.write(path1, fileContent1, StandardCharsets.UTF_8);
+            
+            else if(code_exists(code) && choice.equals("cancel")){
 
-        }
-        
-        else if(code_exists(code) && choice.equals("cancel")){
+                Path path = Paths.get(current_dir + "\\flight_DB.txt");
+                List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
 
-            Path path = Paths.get(current_dir + "\\flight_DB.txt");
-            List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
+                for (int k = 0; k < fileContent.size(); k++){
+                    if(fileContent.get(k).contains(seat_index(i,j))){
+                        String flight_code = fileContent.get(k).split("@")[0];
+                        String str = fileContent.get(k).split("@")[1];
+                        String[] seats_user = str.split(",");
+                        ArrayList<String> new_Seats  = new ArrayList<String>();
 
-            for (int k = 0; k < fileContent.size(); k++){
-                if(fileContent.get(k).contains(seat_index(i,j))){
-                    String flight_code = fileContent.get(k).split("@")[0];
-                    String str = fileContent.get(k).split("@")[1];
-                    String[] seats_user = str.split(",");
-                    ArrayList<String> new_Seats  = new ArrayList<String>();
-
-                    for(int m=0;m<seats_user.length;m++){
-                        if(!seats_user[m].contains(seat_index(i,j))){
-                            System.out.println(seats_user[m]);
-                            new_Seats.add(seats_user[m]);
+                        for(int m=0;m<seats_user.length;m++){
+                            if(!seats_user[m].contains(seat_index(i,j))){
+                                System.out.println(seats_user[m]);
+                                new_Seats.add(seats_user[m]);
+                            }
                         }
+
+                        // Modifying the line which contained seat
+                        String temp = "";
+                        for(String s:new_Seats){
+                            if(!s.equals(new_Seats.get(new_Seats.size()-1)))
+                            temp = temp.concat(s+",");
+                            else temp = temp.concat(s);
+                        }
+
+                        // Updating the arraylist
+                        fileContent.set(k,flight_code+"@"+temp);
+
+                        break;
                     }
-
-                    // Modifying the line which contained seat
-                    String temp = "";
-                    for(String s:new_Seats){
-                        if(!s.equals(new_Seats.get(new_Seats.size()-1)))
-                        temp = temp.concat(s+",");
-                        else temp = temp.concat(s);
-                    }
-
-                    // Updating the arraylist
-                    fileContent.set(k,flight_code+"@"+temp);
-
-                    break;
                 }
+
+                // Writing back to file
+                Files.write(path, fileContent, StandardCharsets.UTF_8);
             }
 
-            // Writing back to file
-            Files.write(path, fileContent, StandardCharsets.UTF_8);
+            fw.close();
+        }
+
+        catch(Exception e){
+            System.out.println(e.toString());
         }
     }
 

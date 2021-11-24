@@ -1,5 +1,5 @@
 rajan0572,B4A70572P,Rajan Sahu,2500
-asudu0744,B4A70744P,A Sudarshan,3000
+asudu0744,B4A70744P,A Sudarshan,500
 jagat0801,B4A30801P,Jagat Challa,200
 aradhya0801,A2PS0801P,Aradhya Singh,9000
 SD0029,0029,Sankha Das,1000

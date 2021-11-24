@@ -2,6 +2,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Year;
 import java.util.*;
 import java.io.*;
 
@@ -178,7 +179,7 @@ public class Customer implements Serializable{
         if (choice.equals("book")) {
 
             System.out.println("Previous Balance Rs."+Balance);
-            amount = Integer.parseInt(cnsl.readLine("Enter amount to withdraw : ").strip());
+            // amount = Integer.parseInt(cnsl.readLine("Enter amount to withdraw : ").strip());
             Integer temp = Balance - amount;
             update_logDB(username,password,this.Name,temp.toString());
             this.Balance -= amount;
@@ -191,7 +192,7 @@ public class Customer implements Serializable{
         else if (choice.equals("cancel")) {
 
             System.out.println("Previous Balance Rs."+Balance);
-            amount = Integer.parseInt(cnsl.readLine("Enter amount to add : ").strip());
+            // amount = Integer.parseInt(cnsl.readLine("Enter amount to add : ").strip());
             Integer temp = Balance + amount;
             update_logDB(username,password,this.Name,temp.toString());
             this.Balance += amount;
@@ -202,7 +203,7 @@ public class Customer implements Serializable{
 
         else{
 
-            System.out.println("Invalid choice...Type \"add\" or \"deduct\"!");
+            // System.out.println("Invalid choice...Type \"add\" or \"deduct\"!");
             update_balance();
 
         }
@@ -270,94 +271,106 @@ public class Customer implements Serializable{
 
 
         // Get date of travel
-        String travel_date = cnsl.readLine("Enter date of travel (format: DD-MM-YYY): ");
-        String from = cnsl.readLine("Travel from: ");
-        String to = cnsl.readLine("travel to: ");
+        String travel_date = cnsl.readLine("Enter date of travel (format: DD-MM-YYYY): ");
+        if(date_check(travel_date) != 1)
+            do_booking();
+        else if(date_check(travel_date) == 1){
 
-        // Show relevant flights
-        BufferedReader br = null;
+            String from = cnsl.readLine("Travel from: ").strip();
+            String to = cnsl.readLine("travel to: ").strip();
 
-        try {
-            FileReader fr = new FileReader(flights);
-            br = new BufferedReader(fr);
+            // Show relevant flights
+            try {
 
-            String line;
+                Path path = Paths.get(current_dir + "\\flights.txt");
+                List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
 
-            while((line = br.readLine()) != null){
+                for (int k = 0; k < fileContent.size(); k++) {
 
-                String[] fields = line.split(",");
+                    String[] fields = fileContent.get(k).split(",");
+                    if(fields[2].equals(from) && fields[3].equals(to)){
 
-                if(fields[2].equals(from) && fields[3].equals(to)){
+                        if(Integer.parseInt(fields[5]) > 0){
 
-                    if(Integer.parseInt(fields[5]) > 0){
+                            for(int i = 0; i < 6; i++){
 
-                        for(int i = 0; i < 6; i++){
+                                String spaces = "";
 
-                            String spaces = "";
+                                for(int j = 0; j < 13 - fields[i].length(); j++)
+                                    spaces += " ";
 
-                            for(int j = 0; j < 13 - fields[i].length(); j++)
-                                spaces += " ";
+                                System.out.print(fields[i] + spaces);
+                            }
 
-                            System.out.println(fields[i] + spaces);
+                            System.out.println("\n");
                         }
 
-                        System.out.println("\n");
-                    }
 
+                    }
+                    
 
                 }
-
 
             }
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
 
-        String code = cnsl.readLine("Enter flight code you choose from above list:  ");
-        int n = Integer.parseInt(cnsl.readLine("Enter number of passengers: "));
+            catch (Exception e) {
+                System.out.println(e.toString());
+            }
 
-        TreeMap<String, String> passengers = new TreeMap<String, String>();
-        for(int i = 0; i< n; i++){
+            String code = cnsl.readLine("Enter flight code you choose from above list:  ");
+            int n = Integer.parseInt(cnsl.readLine("Enter number of passengers: "));
 
-            passengers.put(cnsl.readLine("Enter name of passenger" + Integer.toString(i+1) + ": "),
-                    cnsl.readLine("Enter age of passenger" + Integer.toString(i+1) + ": "));
+            TreeMap<String, String> passengers = new TreeMap<String, String>();
+            for(int i = 0; i< n; i++){
 
-        }
+                passengers.put(cnsl.readLine("Enter name of passenger" + Integer.toString(i+1) + ": "),
+                        cnsl.readLine("Enter age of passenger" + Integer.toString(i+1) + ": "));
 
-        int already_booked = -1;
-        try {
+            }
 
-            Path path = Paths.get(current_dir + "\\flight_seats.txt");
-            List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
-            String passenger_name = "";
-            ArrayList<String> passenger_names = new ArrayList<>();
-            for (int k = 0; k < fileContent.size(); k++) {
+            int already_booked = -1;
+            try {
 
-                String get_code = fileContent.get(k).split("@")[0];
-                if(get_code.equals(code)) {
+                Path path = Paths.get(current_dir + "\\flight_seats.txt");
+                List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
+                    
+                
+                String passenger_name = "";
+                ArrayList<String> passenger_names = new ArrayList<>();
+                    
+                if(fileContent.size() > 0){    
+                    for (int k = 0; k < fileContent.size(); k++) {
 
-                    String temp = fileContent.get(k); // Copy existing contents of the line to temp
-                    if(temp.contains(this.username)){
+                        String get_code = fileContent.get(k).split("@")[0];
+                        if(get_code.equals(code)) {
 
-                        String seat_users = fileContent.get(k).split("@")[1]; //get all the seat users
-                        String[] getPassengers = seat_users.split(","); //separate each getPassengers : "seat-no:username$PassengerName"
+                            String temp = fileContent.get(k); // Copy existing contents of the line to temp
+                            if(temp.contains(this.username)){
 
-                        for(String s:getPassengers){
-                            if(s.contains(this.username)){       //if seat-no:username$PassengerName contains username
-                                String[] op = s.split(":");
-                                passenger_name = op[1].split("$")[1];
-                                if(passengers.keySet().contains(passenger_name)){
-                                    already_booked = 1;
-                                    passenger_names.add(passenger_name);
+                                String seat_users = fileContent.get(k).split("@")[1]; //get all the seat users
+                                String[] getPassengers = seat_users.split(","); //separate each getPassengers : "seat-no:username$PassengerName"
+
+                                for(String s:getPassengers){
+                                    if(s.contains(this.username)){       //if seat-no:username$PassengerName contains username
+                                        String[] op = s.split(":");
+                                        passenger_name = op[1].split("$")[1];
+                                        if(passengers.keySet().contains(passenger_name)){
+                                            already_booked = 1;
+                                            passenger_names.add(passenger_name);
+                                        }
+
+                                        else
+                                            already_booked = 0;
+                                    }
                                 }
-
-                                else
-                                    already_booked = 0;
+                                break;
                             }
                         }
-                        break;
                     }
                 }
+
+                else
+                    already_booked = 0;
 
                 // Booking doesn't exist so allow booking
                 if(already_booked == 0){
@@ -390,8 +403,6 @@ public class Customer implements Serializable{
                     String[] arr = get_flight_details(code);
                     int amount = (int) weight*Integer.parseInt(arr[4]);
                     update_flight_amount(code, amount);
-
-
 
                 }
 
@@ -426,10 +437,10 @@ public class Customer implements Serializable{
                     }while(!choice.equals("R") && !choice.equals("M") && !choice.equals("Q"));
                 }
             }
-        }
 
-        catch (Exception e) {
-            System.out.println(e.toString());
+            catch (Exception e) {
+                System.out.println(e.toString());
+            }
         }
     }
 
@@ -720,6 +731,53 @@ public class Customer implements Serializable{
 
         }
 
+    }
+
+    static int date_check(String s){
+
+        String[] date = s.split("-");
+        
+        try{
+
+            // Year check
+            if(Integer.parseInt(date[2]) >= Year.now().getValue()){
+
+                // Month check
+                if(date[1].equals("04") ||date[1].equals("06") || date[1].equals("09") || date[1].equals("11")){
+
+                    // Date check
+                    if(Integer.parseInt(date[0]) >= 01 && Integer.parseInt(date[0]) <= 30)
+                        return 1;
+                }
+
+                else if(date[1].equals("02")){
+
+                    // Date check
+                    if(Integer.parseInt(date[0]) >= 01 && Integer.parseInt(date[0]) <= 28)
+                        return 1;
+                }
+
+                else if(date[1].equals("01") ||date[1].equals("03") || date[1].equals("05") || date[1].equals("07") || date[1].equals("08") || date[1].equals("10") || date[1].equals("12")){
+
+                    // Date check
+                    if(Integer.parseInt(date[0]) >= 01 && Integer.parseInt(date[0]) <= 31)
+                        return 1;
+                }
+
+                else{
+
+                    System.out.println("Enter valid date!");
+                    return 0;
+                }
+            }
+        }
+
+        catch(Exception e){
+            System.out.println(e.toString());
+            return 0;
+        }
+
+        return 0;
     }
 
 
