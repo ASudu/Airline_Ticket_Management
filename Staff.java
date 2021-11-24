@@ -10,7 +10,9 @@ import java.util.List;
 public class Staff implements Serializable{
     static String current_dir = System.getProperty("user.dir");
     static File login_staffDB = new File(current_dir + "\\login_staffDB.txt");
+
     static Console cnsl1 = System.console();
+
 
     public String Name;
     public String username;
@@ -102,6 +104,7 @@ public class Staff implements Serializable{
 
     }
 
+
     public void generate_boarding_pass()throws Exception{
 
         String username = cnsl1.readLine("Enter username under which the booking exists");
@@ -178,6 +181,7 @@ public class Staff implements Serializable{
             System.out.println("You do not have access to this functionality !");
             Main.Staff_Login(this);
         }
+
     }
 
 
@@ -185,4 +189,6 @@ public class Staff implements Serializable{
 
 
 
+
 }
+

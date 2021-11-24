@@ -16,6 +16,7 @@ public class City {
     private String airport;
     private Point coordinates;
 
+
     // static Map<Object, Object> cities = Stream.of(new Object[][] {
     //     { "Delhi", new Point(0,0) },
     //     { "Mumbai", new Point(-2000,-4000) },
@@ -28,6 +29,7 @@ public class City {
     //     { "Bhopal", new Point(0,-2000)},
     //     { "Gangtok", new Point(500,0)}
     // }).collect(Collectors.collectingAndThen(
+
     //     Collectors.toMap(data -> data[0], data -> data[1]),
     //     Collections::<Object, Object> unmodifiableMap));
 
@@ -53,6 +55,7 @@ public class City {
     static City c8 = new City("Srinagar", "SXR", new Point(0,500));
     static City c9 = new City("Bhopal", "BHO", new Point(0,-2000));
     static City c10 = new City("Chandigarh", "IXE", new Point(-200,0));
+
 
     static Map<Object, Object> cities = Stream.of(new Object[][] {
             { c1, c1.coordinates },
@@ -92,6 +95,8 @@ public class City {
     public void setCoordinates(Point coordinates) {
         this.coordinates = coordinates;
     }
+
+
 
 
     int cal_dist(String from, String to){
@@ -159,7 +164,9 @@ public class City {
                 display = str.split(",");
                 String space = "";
                 for(int i=0;i<13-display[0].length(); i++)
+
                     space += " ";
+
                 System.out.println(row + ". " + display[0]+ space + "|  " + display[1] + "\n");
                 row++;
             }
@@ -193,10 +200,11 @@ public class City {
 
         return c1;
     }
+   
+    
 
 
-
-
+    
 
 }
 
@@ -216,9 +224,11 @@ class Point extends Object{
     }
 
 }
+
 class Driver{
     public static void main(String[] args){
         //  c.construct_file();
         City.display_list_of_cities();
     }
 }
+

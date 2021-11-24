@@ -11,6 +11,7 @@ public class Main {
         System.out.print("\033[H\033[2J");
         System.out.flush();
 
+
         String[] arg1 = new String[2];
         String read = "";
 
@@ -22,14 +23,13 @@ public class Main {
                 main(arg1);
 
             }
-
+            
             else if(read.equals("Q")){
 
-                System.out.println("Exiting.....");
+                System.out.println("Exitting.....");
                 System.exit(0);
 
             }
-
             else
                 System.out.println("Please give a valid input !");
         }while(!read.equals("M") && !read.equals("Q"));
@@ -57,6 +57,7 @@ public class Main {
                 // Clears terminal
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
+
 
                 System.out.println("*******************   LOG IN    *******************");
                 System.out.println("Press C to Login from a  customer account  or Press S to Login from a staff account");
@@ -91,6 +92,7 @@ public class Main {
                 // Clears terminal
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
+
                 System.out.println("Press C to sign up as a customer or Press S to sign up as a staff account");
                 String choice = cnsl.readLine();
 
@@ -110,17 +112,12 @@ public class Main {
                 }
 
             }
-
             else if(read.equals("Q")){
-
                 System.out.println("Exiting.......");
                 System.exit(0);
-
             }
-
             else
                 System.out.println("Please give a valid input !");
-
         }while(!read.equals("L") && !read.equals("S") && !read.equals("Q"));
 
 
@@ -284,6 +281,7 @@ public class Main {
                 // Clears terminal
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
+
 
                 System.out.println("*********************   UPDATE FLIGHT STATUS    *********************");
                 s.update_flight_status();

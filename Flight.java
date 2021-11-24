@@ -107,7 +107,6 @@ public class Flight{
         this.time = time;
     }
 
-
     // public void update_Customers_booked(HashSet<Customer> customers_booked) {
     //     this.customers_booked = customers_booked;
     // }
@@ -139,7 +138,8 @@ public class Flight{
         for (int i = 0; i < fileContent.size(); i++) {
 
             if (fileContent.get(i).equals(this.Airline+","+this.flight_code+","+this.from+","+this.to+","+Integer.toString(this.fare)+","+Integer.toString(this.free_seats)+","+
-                    "," + this.time + "," + this.flight_status)) {
+
+             "," + this.time + "," + this.flight_status)) {
 
                 fileContent.set(i, airline+","+code+","+from+","+to+","+fare+","+free_seats+","+ time + "," + status);
                 break;
@@ -173,6 +173,7 @@ class Airline{
     }
 
     // Only Sales Head of the Airline can add flights into the system
+
     public void add_Flights(Staff s,ArrayList<Flight> flights) throws Exception{
         if(s.designation.equals("Sales Head")){
             // this.flights.addAll(flights);
@@ -182,6 +183,7 @@ class Airline{
                 try {
                     FileWriter fw = new FileWriter(flights_file, true);
                     br1 = new BufferedWriter(fw);
+
 
                     for(Flight flight_obj : flights){
 
@@ -203,15 +205,16 @@ class Airline{
                     System.out.println(e.toString());
                     System.out.println("Some error was encountered");
                     Main.Staff_Login(s);
+
                 }
 
             }
 
             else{
                 System.out.println("You can't add flights of different airlines!....");
+
                 Main.Staff_Login(s);
             }
-
 
         }
 
@@ -225,12 +228,12 @@ class Airline{
     // Only Sales Head of the Airline can add flights into the system
     public void add_Flights(Staff s,Flight flight) throws Exception {
         if(s.designation.equals("Sales Head")){
-
             if(s.Airline.equals(flight.getAirline())){
 
                 try {
                     FileWriter fw = new FileWriter(flights_file);
                     br1 = new BufferedWriter(fw);
+
 
                     // // For testing
                     // System.out.println(flight.getAirline() + "," + flight.getFlight_code() + "," + flight.getFrom() + ","
@@ -248,6 +251,7 @@ class Airline{
                     System.out.println(e.toString());
                     System.out.println("Some error was encountered");
                     Main.Staff_Login(s);
+
                 }
 
             }
@@ -256,7 +260,6 @@ class Airline{
                 System.out.println("You can't add flights of different airlines!....");
                 Main.Staff_Login(s);
             }
-
 
         }
 
@@ -280,7 +283,7 @@ class Airline{
     }
 
     public ArrayList<Staff> getStaffs() {
-        return this.staffs;
+        return this.staffs; 
     }
 
     public void add_Staffs(ArrayList<Staff> staffs) {
