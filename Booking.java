@@ -87,13 +87,14 @@ public class Booking {
 
             for (Map.Entry<String, String> entry : passengers.entrySet()) {
 
-                System.out.println(entry.getKey());
-                // s.book_seat(c, entry.getKey());
+                
+                s.book_seat(c, entry.getKey());
                 log_file.append(c, "Ticket booked by " + c.username);
 
             }
 
             System.out.println("Booking successful! Thank you!");
+            
 
 
         }
@@ -101,8 +102,7 @@ public class Booking {
         else if(op.equals("cancel")){
             for (Map.Entry<String, String> entry : passengers.entrySet()){
 
-                System.out.println(entry.getKey());
-                // s.cancel_seat(c, entry.getKey(), entry.getValue());
+                s.cancel_seat(c, entry.getKey(), entry.getValue());
                 log_file.append(c, "Ticket cancelled by " + c.username);
             }
 

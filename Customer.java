@@ -365,6 +365,8 @@ public class Customer implements Serializable{
                                 }
                                 break;
                             }
+                            else 
+                                already_booked = 0;
                         }
                     }
                 }
@@ -591,7 +593,7 @@ public class Customer implements Serializable{
 
         catch (Exception e) {
 
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
         Booking b = new Booking(travel_date, from, to);
 
@@ -773,7 +775,8 @@ public class Customer implements Serializable{
         }
 
         catch(Exception e){
-            System.out.println(e.toString());
+            
+            e.printStackTrace();
             return 0;
         }
 

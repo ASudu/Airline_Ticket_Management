@@ -83,6 +83,7 @@ public class Seats implements Serializable {
 
     String book_seat(Customer c, String name)throws Exception{
 
+        
         System.out.println("which seat do you prefer?: ");
         System.out.println("1. \"W\" for window seat\n2. \"M\" for middle seat\n3. \"A\" for Aisle seat\n4. \"N\" for no preference\n5. \"Q\" to quit");
         String read = cnsl.readLine("Your choice: ").strip();
@@ -278,7 +279,7 @@ public class Seats implements Serializable {
             if(!code_exists(code) && choice.equals("book")) {
 
                 fw.write(flightCode + "@" + seat_index(i, j) + ":" + c.username + "$" + name);
-                fw.close();
+                
 
             }
             
@@ -368,7 +369,8 @@ public class Seats implements Serializable {
         }
 
         catch(Exception e){
-            System.out.println(e.toString());
+            System.out.println("updateflightdb");
+            e.printStackTrace();
         }
     }
 

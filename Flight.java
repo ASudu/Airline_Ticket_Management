@@ -95,7 +95,7 @@ public class Flight{
 
     public void setCustomers_booked(int booked) {
         this.customers_booked = booked;
-        this.free_seats -= booked;
+        free_seats = free_seats - booked;
     }
 
     public String get_time() {
@@ -130,15 +130,13 @@ public class Flight{
     public void update_flights(String airline, String code, String from, String to, String fare, String free_seats, String time,String status) throws Exception{
 
         // First find the flight by flight_code :(unique identity)
-        Path path = Paths.get(current_dir + "flights.txt");
+        Path path = Paths.get(current_dir + "\\flights.txt");
 
         List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
 
         for (int i = 0; i < fileContent.size(); i++) {
 
-            if (fileContent.get(i).equals(this.Airline+","+this.flight_code+","+this.from+","+this.to+","+Integer.toString(this.fare)+","+Integer.toString(this.free_seats)+","+
-
-             "," + this.time + "," + this.flight_status)) {
+            if (fileContent.get(i).contains(this.flight_code)) {
 
                 fileContent.set(i, airline+","+code+","+from+","+to+","+fare+","+free_seats+","+ time + "," + status);
                 break;
