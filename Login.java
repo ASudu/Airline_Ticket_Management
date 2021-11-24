@@ -68,15 +68,20 @@ public class Login {
 
         // Login failed
         else if(count == 1){
-            System.out.println("Login Failed!.....");
+
             log_file.append("Login failed");
-            String ch = cnsl.readLine("Do you want to continue or exit? Enter C to continue E to exit : ").strip();
+            System.out.println("Login Failed!.....");
+            String ch = cnsl.readLine("Do you want to continue or exit? Enter \"C\" to continue \"E\" to exit : ").strip();
 
-            if(ch == "C")
-                LOG_IN();
+            do{
+                if(ch.equals("C"))
+                    LOG_IN();
 
-            else if(ch == "E")
-                System.exit(0);
+                else if(ch.equals("E"))
+                    System.exit(0);
+                else
+                    System.out.println("Please give a valid input !");
+            }while(!ch.equals("C") && !ch.equals("E"));
         }
 
         // User doesn't exist
@@ -173,6 +178,7 @@ public class Login {
     //----------------------------------------------------------------------------------------------------------------//
     // Or you are a new staff/customer just set up your details
     public static void SIGN_UP(String str) throws Exception {
+
         System.out.println("Set up your account");
         String[] read = new String[6]; // String array to read file to check if entered credentials are unique
 
@@ -202,7 +208,7 @@ public class Login {
                 FileWriter fw = new FileWriter(login_customerDB, true);
 
                 //login database : username, password, Customer name, balance
-                fw.write(c_new.username + "," + read[2] + "," + read[0] + "," + read_int.toString() + '\n');
+                fw.write(c_new.username + "," + read[2] + "," + read[0] + "," + read_int.toString() + "\n");
                 fw.close();
                 log_file.append(c_new, "new user Signed Up");
             }else{

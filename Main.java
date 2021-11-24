@@ -7,9 +7,9 @@ public class Main {
 
     public static void go_to_login_page()throws Exception{
 
-        // Clears terminal
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        // // Clears terminal
+        // System.out.print("\033[H\033[2J");
+        // System.out.flush();
 
 
         String[] arg1 = new String[2];
@@ -60,29 +60,24 @@ public class Main {
 
 
                 System.out.println("*******************   LOG IN    *******************");
-                System.out.println("Press C to Login from a  customer account  or Press S to Login from a staff account");
-                String choice = cnsl.readLine();
-                if(choice.equals("C")) {
-                    Customer c = Login.LOG_IN();
-                    Succesful_login(c);
+                System.out.println("Press \"C\" to Login from a  customer account  or Press \"S\" to Login from a staff account");
+                String choice = cnsl.readLine("Your choice: ");
+                
+                do{
+                    if(choice.equals("C")) {
 
+                        Customer c = Login.LOG_IN();
+                        Succesful_login(c);
 
-                    // Clears terminal
-                    System.out.print("\033[H\033[2J");
-                    System.out.flush();
+                    }else if(choice.equals("S")){
+                        Staff s = Login.sLOG_IN();
+                        Staff_Login(s);
 
-                    System.out.println("**********************   DASHBOARD    **********************");
-                }else if(choice.equals("S")){
-                    Staff s = Login.sLOG_IN();
-                    Staff_Login(s);
-
-                    // Clears terminal
-                    System.out.print("\033[H\033[2J");
-                    System.out.flush();
-                }else{
-                    System.out.println("Please enter a valid input");
-                    Main.main(args);
-                }
+                    }else{
+                        System.out.println("Please enter a valid input");
+                        Main.main(args);
+                    }
+                }while(!choice.equals("C") && !choice.equals("S"));
 
 
             }
@@ -93,8 +88,9 @@ public class Main {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
 
+                System.out.println("*******************   SIGN UP    *******************");
                 System.out.println("Press C to sign up as a customer or Press S to sign up as a staff account");
-                String choice = cnsl.readLine();
+                String choice = cnsl.readLine("Your choice: ");
 
                 if(choice.equals("C")){
 
@@ -125,6 +121,12 @@ public class Main {
 
     public static void Succesful_login(Customer c)throws Exception{
 
+        // Clears terminal
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
+        System.out.println("**********************   DASHBOARD    **********************");
+        System.out.println("Login successful!");
         System.out.println("Welcome Mr./Mrs."+c.Name);
         System.out.println("------------------------------------------------");
         System.out.println("Enter one of the following: ");
@@ -178,7 +180,6 @@ public class Main {
                 c.update_balance();
             }
 
-            // Yet to define fns
             else if(read1.equals("B")){
 
                 // Clears terminal
@@ -186,7 +187,7 @@ public class Main {
                 System.out.flush();
 
                 System.out.println("*********************   BOOKING    *********************");
-                c.do_booking(); // Yet to define
+                c.do_booking();
             }
 
             else if(read1.equals("V")){
@@ -196,7 +197,7 @@ public class Main {
                 System.out.flush();
 
                 System.out.println("*******************   VIEW TICKET    *******************");
-                c.view_ticket();  // Yet to define
+                c.view_ticket();
             }
 
             else if(read1.equals("E")){
@@ -206,7 +207,7 @@ public class Main {
                 System.out.flush();
 
                 System.out.println("******************   CANCEL TICKET    ******************");
-                c.cancel_ticket();  // Yet to define
+                c.cancel_ticket();
             }
 
             else if(read1.equals("Q")){
@@ -222,6 +223,13 @@ public class Main {
     }
     public static void Staff_Login(Staff s)throws Exception{
 
+        // Clears terminal
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
+        System.out.println("**********************   DASHBOARD    **********************");
+        System.out.println("Login successful!");
+        
         System.out.println("Welcome Mr./Mrs."+s.Name);
         System.out.println("------------------------------------------------");
         System.out.println("Enter one of the following: ");

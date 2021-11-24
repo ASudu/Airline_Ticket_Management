@@ -48,8 +48,8 @@ public class LogFile{
 
         // Call finer method
         logger.finer("--!!--"+" :: "+str);
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        // System.out.print("\033[H\033[2J");
+        // System.out.flush();
 
 
     }

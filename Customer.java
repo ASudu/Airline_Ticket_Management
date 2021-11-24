@@ -41,6 +41,7 @@ public class Customer implements Serializable{
         this.username = username;
         this.password = password;
         this.address = address;
+        this.Balance = 0;
         this.uniqueCode = hashCode();
     }
 
@@ -261,6 +262,8 @@ public class Customer implements Serializable{
         // Clears terminal
         System.out.print("\033[H\033[2J");
         System.out.flush();
+
+        System.out.println("*********************   BOOKING    *********************");
 
 
         City.display_list_of_cities();
