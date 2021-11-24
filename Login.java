@@ -1,4 +1,3 @@
-
 import java.io.*;
 
 public class Login {
@@ -63,16 +62,19 @@ public class Login {
             active.update_balance(words[0], words[1], Integer.parseInt(words[3]), "add");
             log_file.append(active,"Logged in successfully");
             return active;
-        } 
-        
+
+
+        }
+
         // Login failed
         else if(count == 1){
             System.out.println("Login Failed!.....");
+            log_file.append("Login failed");
             String ch = cnsl.readLine("Do you want to continue or exit? Enter C to continue E to exit : ").strip();
 
             if(ch == "C")
                 LOG_IN();
-            
+
             else if(ch == "E")
                 System.exit(0);
         }
@@ -84,47 +86,6 @@ public class Login {
             Main.go_to_login_page();
         }
         fr.close();
-
-
-            read[2] = String.valueOf(cnsl.readPassword("Enter password : "));  // Returns char array which is converted to string
-            String p = String.valueOf(cnsl.readPassword("Confirm password : "));
-
-            if(p.equals(read[2])){
-
-                Customer c_new = new Customer(read[0], read[1], read[2], read[1] + "@gmail.com");
-
-                // Integer balance;
-                String read_int =cnsl.readLine("Enter amount of money would you like to set up for the account in Rs. : ");
-
-                // Updates the balance of the customer object that's being set up
-                c_new.update_balance(read[1], read[2], Integer.parseInt(read_int), "add");
-
-
-                FileWriter fw = new FileWriter(login_customerDB, true);
-
-                //login database : username, password, Customer name, balance
-                fw.write(c_new.username + "," + read[2] + "," + read[0] + "," + read_int.toString() + '\n');
-            fw.close();
-
-            }
-
-            else{
-
-                System.out.println("Password did not match.....");
-                SIGN_UP();
-
-            }
-            
-
-        }
-        
-        // If username already exists
-        else {
-
-            System.out.println("Enter your details again, Existing username already exists !");
-            // System.out.print("\033[H\033[2J");
-            // System.out.flush();
-            Main.go_to_login_page();
 
         return new Customer();
     }
@@ -151,7 +112,6 @@ public class Login {
 
             // Username matches with an entry
             if (words[1].equals(login[0])) {
-
 
                 // Password matches
                 if(words[2].equals(login[1])){
@@ -180,7 +140,6 @@ public class Login {
 
             Staff active = new Staff(words[0], words[1], words[2], words[3],words[4],words[5]);
 //            System.out.println(words[3]);//current active customer
-
 
             log_file.append(active,"Logged in successfully");
             return active;
@@ -343,7 +302,6 @@ public class Login {
             }
 
             br1.close();  // Close reader object
-
 
             if (count != 0) return false;
             else return true;

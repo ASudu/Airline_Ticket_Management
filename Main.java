@@ -178,7 +178,6 @@ public class Main {
                 c.update_balance();
             }
 
-            // Yet to define fns
             else if(read1.equals("B")){
 
                 // Clears terminal
@@ -186,7 +185,7 @@ public class Main {
                 System.out.flush();
 
                 System.out.println("*********************   BOOKING    *********************");
-                c.do_booking(); // Yet to define
+                c.do_booking();
             }
 
             else if(read1.equals("V")){
@@ -196,7 +195,7 @@ public class Main {
                 System.out.flush();
 
                 System.out.println("*******************   VIEW TICKET    *******************");
-                c.view_ticket();  // Yet to define
+                c.view_ticket();
             }
 
             else if(read1.equals("E")){
@@ -206,7 +205,7 @@ public class Main {
                 System.out.flush();
 
                 System.out.println("******************   CANCEL TICKET    ******************");
-                c.cancel_ticket();  // Yet to define
+                c.cancel_ticket();
             }
 
             else if(read1.equals("Q")){
