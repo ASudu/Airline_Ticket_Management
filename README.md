@@ -1,6 +1,6 @@
 # Airline Ticket Management
 
-This is the repository for the course project in CS F213: Object Oriented Programming, Fall 2021.
+This is the repository for the course project in [CS F213: Object Oriented Programming, Fall 2021](https://academic.bits-pilani.ac.in/Faculty/FINAL_HANDOUT_FILES/CS_F213_1092.pdf).
 
 ## Authors
 
