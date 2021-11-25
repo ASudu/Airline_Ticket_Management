@@ -114,14 +114,35 @@ public class Staff implements Serializable{
         String flightcode = cnsl1.readLine("Enter flightcode :");
 
         BoardingPass bp_Staff = new BoardingPass(username,flightcode);
-        int flag = bp_Staff.display_boarding_pass();
+        int verified = Checkin.checkin(username, flightcode);
 
-        if(flag==0){
-            System.out.println("Error in generating boarding pass, most probably no booking exists");
-            Main.Staff_Login(this);
-        }else if(flag==1){
-            System.out.println("Boarding pass generated Successfully");
-            Main.Staff_Login(this);
+        // Verification successful
+        if(verified >= 0){
+
+            int bag_weight = verified; // If verification successful function returns bag weight
+            
+            // Bag weight hard upper limit is 40kgs (assumed)
+            if(bag_weight < 40){
+                int bag_charge = (bag_weight > 25)? (bag_weight - 25)*100 : 0;
+                int flag = bp_Staff.display_boarding_pass(bag_weight, bag_charge);
+
+                if(flag==0){
+                    System.out.println("Error in generating boarding pass, most probably no booking exists");
+                    Main.Staff_Login(this);
+                }
+                
+                else if(flag==1){
+                    System.out.println("Boarding pass generated Successfully");
+                    Main.Staff_Login(this);
+                }
+            }
+
+            else{
+                System.out.println("Too heavy to allow boarding....");
+                System.out.println("Reduce baggage weiht and try again.....");
+                generate_boarding_pass();
+            }
+
         }
 
     }

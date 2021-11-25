@@ -489,7 +489,7 @@ public class Customer implements Serializable{
                     fc = get_code;
                     booking_exists = 1;
                     bp = new BoardingPass(this.username, fc);
-                    bp.display_boarding_pass();
+                    bp.display_boarding_pass(); // Before check-in
                     break;
                 }
 
