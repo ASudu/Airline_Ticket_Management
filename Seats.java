@@ -93,7 +93,7 @@ public class Seats implements Serializable {
         String read = cnsl.readLine("Your choice: ").strip();
         int counter = 0;
         String seat_no = "";
-
+        int ver_no = 0;
 
         do{
 
@@ -105,7 +105,8 @@ public class Seats implements Serializable {
                         if((j==0||j==5) && (check_seat_vacant(i,j))){
 
                             seat_matrix[i][j] = 1;
-                            update_flightDB(c,i,j,flightCode,name,"book");
+                            ver_no = Integer.parseInt(cnsl.readLine("Enter verification number to verify booking while check-in: ").strip());
+                            update_flightDB(c,i,j,flightCode,name,Integer.toString(ver_no),"book");
 
                             System.out.println("Your seat number is : " +seat_index(i,j));
                             seat_no = seat_no + seat_index(i,j);
@@ -129,7 +130,8 @@ public class Seats implements Serializable {
                         if((j==1||j==4) && (check_seat_vacant(i,j))){
 
                             seat_matrix[i][j] = 1;
-                            update_flightDB(c,i,j,flightCode,name,"book");
+                            ver_no = Integer.parseInt(cnsl.readLine("Enter verification number to verify booking while check-in: ").strip());
+                            update_flightDB(c,i,j,flightCode,name,Integer.toString(ver_no),"book");
 
                             System.out.println("Your seat number is : " +seat_index(i,j));
                             seat_no = seat_no + seat_index(i,j);
@@ -153,7 +155,8 @@ public class Seats implements Serializable {
                         if((j==2||j==3) && (check_seat_vacant(i,j))){
 
                             seat_matrix[i][j] = 1;
-                            update_flightDB(c,i,j,flightCode,name,"book");
+                            ver_no = Integer.parseInt(cnsl.readLine("Enter verification number to verify booking while check-in: ").strip());
+                            update_flightDB(c,i,j,flightCode,name,Integer.toString(ver_no),"book");
 
                             System.out.println("Your seat number is : " +seat_index(i,j));
                             seat_no = seat_no + seat_index(i,j);
@@ -174,8 +177,11 @@ public class Seats implements Serializable {
                 for(int i=0;i<30;i++){
                     for(int j=0;j<6;j++){
                         if(check_seat_vacant(i,j)){
+
                             this.update_seats(i,j);
-                            update_flightDB(c,i,j,flightCode,name,"book");
+                            ver_no = Integer.parseInt(cnsl.readLine("Enter verification number to verify booking while check-in: ").strip());
+                            update_flightDB(c,i,j,flightCode,name,Integer.toString(ver_no),"book");
+
                             System.out.println("Your seat number is : " +seat_index(i,j));
                             seat_no = seat_no + seat_index(i,j);
                             counter = 1;
@@ -262,8 +268,8 @@ public class Seats implements Serializable {
 
 
     // Called when seat is to be cancelled
-    void cancel_seat(Customer c, String name,String seat) throws Exception{
-        // int found =0;
+    void cancel_seat(Customer c, String name, String seat) throws Exception{
+        
         String[] read = new String[2];
         read = seat.split("-");
         int i = Integer.parseInt(read[0])-1;
@@ -272,8 +278,8 @@ public class Seats implements Serializable {
         temp_flight.setCustomers_booked(-1);
 
 
-        // c.seat_no = null;
-        update_flightDB(c, i, j, this.flightCode, name, "cancel");
+        int ver_no = Integer.parseInt(cnsl.readLine("Enter verification number to verify booking while check-in: ").strip());
+        update_flightDB(c,i,j,flightCode,name,Integer.toString(ver_no),"book");
         String[] arr = get_flight_details(this.flightCode);
         temp_flight.update_flights(arr[0], arr[1], arr[2], arr[3], arr[4], Integer.toString(temp_flight.getFree_seats()), arr[6], arr[7]);
 
@@ -282,7 +288,7 @@ public class Seats implements Serializable {
 
 
     // Adds entry of user with username and passenger name
-    void update_flightDB(Customer c,int i, int j,String code, String name, String choice)throws Exception{
+    void update_flightDB(Customer c,int i, int j,String code, String name, String ver_no, String choice)throws Exception{
 
         try{
             FileWriter fw = new FileWriter(flight_seats,true);
@@ -290,7 +296,7 @@ public class Seats implements Serializable {
             // If this is the first seat being booked in that flight (entry doesn't exists in the file)
             if(!code_exists(code) && choice.equals("book")) {
 
-                fw.write(flightCode + "@" + seat_index(i, j) + ":" + c.username + "$" + name);
+                fw.write(flightCode + "@" + seat_index(i, j) + ":" + c.username + "$" + name + "+" + ver_no);
                 
 
             }
@@ -308,7 +314,7 @@ public class Seats implements Serializable {
                     if(get_code.equals(code)) {
 
                         String temp = fileContent.get(k); // Copy existing contents of the line to temp
-                        fileContent.set(k, temp +","+ seat_index(i, j) + ":" + c.username + "$" + name); // Modifying it and rewriting to list
+                        fileContent.set(k, temp +","+ seat_index(i, j) + ":" + c.username + "$" + name + "+" + ver_no); // Modifying it and rewriting to list
                         break;
 
                     }
