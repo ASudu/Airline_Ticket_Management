@@ -18,16 +18,11 @@ public class Customer implements Serializable{
     //-------------------------------------------------Variables------------------------------------------------------//
     public String Name;
     public String username;
-    private String gender;
     private String password;
-    private String address;
     private Integer Balance;
-    private int uniqueCode;
-    // Additional fields needed while booking
     String travel_date;
     String travel_from;
     String travel_to;
-    // String seat_no = null;
     Booking booked;
 
     //----------------------------------Constructor to create Customer object-----------------------------------------//
@@ -37,13 +32,11 @@ public class Customer implements Serializable{
     }
 
     // Constructor to set up the customer's account
-    Customer(String name, String username, String password, String address){
+    Customer(String name, String username, String password){
         this.Name = name;
         this.username = username;
         this.password = password;
-        this.address = address;
         this.Balance = 0;
-        this.uniqueCode = hashCode();
     }
 
     String get_password(){
@@ -57,7 +50,7 @@ public class Customer implements Serializable{
 
         System.out.println("***************   CHANGE CREDENTIALS    ***************");
 
-        String n, u, p, ad;
+        String n, u, p;
         n = cnsl.readLine("Enter your new name : ").strip();
         u = cnsl.readLine("Enter your new username : ").strip();
 
@@ -67,12 +60,10 @@ public class Customer implements Serializable{
 
             if(p1.equals(p)){
 
-                ad = u + "@gmail.com";
                 update_logDB(u, p, n, Balance.toString());
                 this.Name = n;
                 this.username = u;
                 this.password = p;
-                this.address = ad;
 
             }
 
@@ -405,6 +396,26 @@ public class Customer implements Serializable{
                     String[] arr = get_flight_details(code);
                     int amount = (int) weight*Integer.parseInt(arr[4]);
                     update_flight_amount(code, amount);
+                    String choice = "";
+
+                    do{
+                        choice = cnsl.readLine("Enter 1. \"M\" to go to main page\n3. \"Q\" to quit");
+
+                        if(choice.equals("R"))
+                            do_booking();
+
+                        else if(choice.equals("M")){
+                            Main.Succesful_login(this);
+                        }
+
+                        else if(choice.equals("Q")){
+                            System.out.println("Exiting....");
+                            System.exit(0);
+                        }
+
+                        else
+                            System.out.println("Please enter valid input!");
+                    }while(!choice.equals("R") && !choice.equals("M") && !choice.equals("Q"));
 
                 }
 
