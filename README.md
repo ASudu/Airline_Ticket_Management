@@ -9,6 +9,17 @@ This is the repo for the course project in CS F213: Object Oriented Programming,
 | A Sudarshan |2019B4A70744P |
 | Rajan Sahu | 2019B4A70572P|
 
+## Description
+
+- Login and account balance management implemented
+- Basic flight booking, cancelling, viewing operations available for customer
+- Staff management, airline management implemented
+- Add flights, update flight status, etc are functionalities available to airline staff based on their designations
+- Check-in, generate boarding pass and bag weight limit also implemented
+- Additional Salient features:
+    - [Password masking](https://scirge.com/glossary/password-masking): For security of the user
+    - Logger: Records each action (such as login, sign-up, booking, etc.) of the user with timestamp and username (helps in keeping track of errors in case they arise)
+
 ## How to run this?
 
 - JDK used: [16.0.2](https://www.oracle.com/java/technologies/javase/jdk16-archive-downloads.html)
@@ -20,6 +31,8 @@ This is the repo for the course project in CS F213: Object Oriented Programming,
 - In command prompt (Windows) compile all java files using `javac *.java` and once it compiles, run main.java using `java Main`
 
 ## Important points while running the project
+
+- 
 
 ## Basic Modules
 ### Main Module
