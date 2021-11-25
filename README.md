@@ -5,7 +5,7 @@ This is the repository for the course project in CS F213: Object Oriented Progra
 ## Authors
 
 | Name | ID |
-|: --- :|: ----------- :|
+| --- | ----------- |
 | A Sudarshan |2019B4A70744P |
 | Rajan Sahu | 2019B4A70572P|
 
