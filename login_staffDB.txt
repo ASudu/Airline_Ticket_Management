@@ -1,1 +1,5 @@
-asudu,Sudu,B4A7,SpiceJet,001,Sales Head
+Vir Singh,virsing,spj1456,SpiceJet,001,CEO
+Hari Dutta,HD1080,ind018,Indigo,001,CEO
+Pratap Thakur,PT011,AIML,AirIndia,001,CEO
+Ramesh Khanna,RK47,go47,GoAir,001,CEO
+Aahan Kunwar,AK47,viak47,Vistara,001,CEO

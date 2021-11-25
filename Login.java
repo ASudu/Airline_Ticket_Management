@@ -225,7 +225,13 @@ public class Login {
             String p = String.valueOf(cnsl.readPassword("Confirm password : "));
 
             if(p.equals(read[2])) {
-                read[3] = cnsl.readLine("Enter your Airline Company: ");
+
+                do{
+                    System.out.println("\n This handles only staffs of the airline SpiceJet, Indigo, AirIndia, GoAir, Vistara\n");
+                    read[3] = cnsl.readLine("Your Airline Company: ");
+                    
+                }while(!read[3].equals((new SpiceJet()).getName()) && !read[3].equals((new Indigo()).getName()) && !read[3].equals((new AirIndia()).getName()) && !read[3].equals((new GoAir()).getName()) && !read[3].equals((new Vistara()).getName()));
+            
                 read[4] = cnsl.readLine("Enter your Employee ID :");
                 read[5] = cnsl.readLine("Enter your designation: ");
                 Staff s_new = new Staff(read[0], read[1], read[2], read[3], read[4], read[5]);
@@ -235,10 +241,12 @@ public class Login {
                 FileWriter fw = new FileWriter(login_staffDB, true);
 
                 //login database : Name,username,password,Airline,emp_ID,designation
-                fw.write(s_new.Name + "," + s_new.username + "," + read[2] + "," + read[3] + "," + ID + "," + read[5]);
+                fw.write(s_new.Name + "," + s_new.username + "," + read[2] + "," + read[3] + "," + ID + "," + read[5] + "\n");
                 fw.close();
                 log_file.append(s_new, "new user Signed Up");
-            }else{
+            }
+            
+            else{
                 System.out.println("Password did not match.....");
                 SIGN_UP("Staff");
 

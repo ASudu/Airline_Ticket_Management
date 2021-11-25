@@ -86,3 +86,13 @@ Nov 25, 2021 12:41:23 AM LogFile append
 FINER: rajan0572 :: Logged in successfully
 Nov 25, 2021 1:56:53 PM LogFile append
 FINER: asudu0744 :: Logged in successfully
+Nov 25, 2021 6:19:47 PM LogFile append
+FINER: virsing :: new user Signed Up
+Nov 25, 2021 6:21:29 PM LogFile append
+FINER: HD1080 :: new user Signed Up
+Nov 25, 2021 6:24:12 PM LogFile append
+FINER: PT011 :: new user Signed Up
+Nov 25, 2021 6:26:11 PM LogFile append
+FINER: RK47 :: new user Signed Up
+Nov 25, 2021 6:28:02 PM LogFile append
+FINER: AK47 :: new user Signed Up
