@@ -32,7 +32,7 @@ This is the repository for the course project in [CS F213: Object Oriented Progr
 
 ## Important points while running the project
 
-- As mentioned in [Markdown - Project description](#Description), we have used password masking using the Console class of Java. **This doesn't echo any character on the console but just takes input thus hiding what is being typed.**
+- As mentioned in [Project description](#Description), we have used password masking using the Console class of Java. **This doesn't echo any character on the console but just takes input thus hiding what is being typed.**
 - Each menu that takes user input to get re-directed to some other menu requires characters to be typed in uppercase (case-sensitive)
 - Other assuptions:
     - 10 cities (including one Home city), each with 1 airport having just one terminal
