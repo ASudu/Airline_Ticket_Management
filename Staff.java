@@ -124,6 +124,10 @@ public class Staff implements Serializable{
             // Bag weight hard upper limit is 40kgs (assumed)
             if(bag_weight < 40){
                 int bag_charge = (bag_weight > 25)? (bag_weight - 25)*100 : 0;
+
+                // Notify about weight limit exceeded
+                if(bag_charge >0)
+                    System.out.println("Your luggage exceeds limit of 25kgs by " + Integer.toString(bag_weight - 25) + " you'll be charged extra Rs." + Integer.toString(bag_charge));
                 int flag = bp_Staff.display_boarding_pass(bag_weight, bag_charge);
 
                 if(flag==0){
