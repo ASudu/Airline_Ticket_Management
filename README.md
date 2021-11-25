@@ -14,7 +14,9 @@ This is the repo for the course project in CS F213: Object Oriented Programming,
 - JDK used: [16.0.2](https://www.oracle.com/java/technologies/javase/jdk16-archive-downloads.html)
 - OS used: Windows 10
 - Clone this repository in your system
-- The problem statements folder has the question details and the [UML class, sequence and use-case diagrams](https://www.javatpoint.com/ uml-class-diagram)
+- The problem statements folder contains
+    - Question details
+    - [UML class, sequence and use-case diagrams](https://www.javatpoint.com/uml-class-diagram)
 - In command prompt (Windows) compile all java files using `javac *.java` and once it compiles, run main.java using `java Main`
 
 ## Important points while running the project
