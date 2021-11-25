@@ -16,7 +16,7 @@ This is the repo for the course project in CS F213: Object Oriented Programming,
 - Clone this repository in your system
 - The problem statements folder contains
     - Question details
-    - [UML class, sequence and use-case diagrams](https://www.javatpoint.com/uml-class-diagram)
+    - [UML](https://www.javatpoint.com/uml-class-diagram) class, sequence and use-case diagrams
 - In command prompt (Windows) compile all java files using `javac *.java` and once it compiles, run main.java using `java Main`
 
 ## Important points while running the project
