@@ -9,6 +9,10 @@ This is the repository for the course project in [CS F213: Object Oriented Progr
 | A Sudarshan |2019B4A70744P |
 | Rajan Sahu | 2019B4A70572P|
 
+## Demo run
+
+- Refer this [video](https://drive.google.com/file/d/1oRG4fnvuG2PhDWQDCuK1ea-9LhLfYV1a/view?usp=sharing)
+
 ## Description
 
 - Login and account balance management implemented
