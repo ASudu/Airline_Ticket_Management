@@ -42,7 +42,7 @@ This is the repository for the course project in [CS F213: Object Oriented Progr
 
 ## Basic Modules
 
-- This document has a clear explanation of working and requirements of each of the modules
+- This [document](https://github.com/ASudu/Airline_Ticket_Management/blob/main/Problem_statement/Modules%20of%20the%20project.pdf) has a clear explanation of working and requirements of each of the modules
 
 
 ## Guidelines
