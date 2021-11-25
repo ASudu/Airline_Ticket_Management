@@ -1,28 +1,24 @@
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class BoardingPass{
 
     String booking_name; // The username under which booking was done
-    String flight_code; // The flight code of the flight in which user has booked
-
+    String flight_code;
     static String current_dir = System.getProperty("user.dir");
 
-
-    // Default constructor
-    public BoardingPass() {
-    }
-
-    // Parameterized constructor
     BoardingPass(String n,String c){
 
         this.booking_name = n;
         this.flight_code = c;
     }
+    public BoardingPass(){
+
+    }
 
 
-    // To display boarding pass before check-in(if booking exists)
     public int display_boarding_pass()throws Exception{
 
         Path path = Paths.get(current_dir + "\\flight_seats.txt");
@@ -50,7 +46,7 @@ public class BoardingPass{
             }
         }
 
-        // To get airport code
+        // To get airport code and terminal
         City c_from = new City();
         City c_to = new City();
         c_from  = c_from.assign_city(from);
@@ -70,14 +66,13 @@ public class BoardingPass{
                         if(s.contains(booking_name)){       //if seat-no:username$PassengerName contains username
 
                             String[] op = s.split(":");
-                            String passenger_name = op[1].split("$")[1];
+                            String passenger_name = op[1].split(Pattern.quote("$"))[1].split("[+]")[0];
                             String passenger_Seat = op[0];
 
                             flag  = 1;
 
-                            // Display the boarding pass
+
                             System.out.println("***********************************************************************");
-                            System.out.println("(Befor check-in)");
                             System.out.println("THANK YOU FOR FLYING WITH " + airline + "!!");
                             System.out.println("   FLIGHT CODE: " + this.flight_code);
                             System.out.println("   FROM: " + from + "(" + c_from.getAirport() + ")" + "            TO: " + to + "(" + c_to.getAirport() + ")");
@@ -101,8 +96,6 @@ public class BoardingPass{
         return 1;
 
     }
-
-    // To display boarding pass after check-in(if booking exists)
     public int display_boarding_pass(int bag_weight, int bag_charge)throws Exception{
 
         Path path = Paths.get(current_dir + "\\flight_seats.txt");
@@ -150,7 +143,7 @@ public class BoardingPass{
                         if(s.contains(booking_name)){       //if seat-no:username$PassengerName contains username
 
                             String[] op = s.split(":");
-                            String passenger_name = op[1].split("$")[1];
+                            String passenger_name = op[1].split(Pattern.quote("$"))[1].split("[+]")[0];
                             String passenger_Seat = op[0];
 
                             flag  = 1;
@@ -177,12 +170,14 @@ public class BoardingPass{
 
 
 
-    if(flag==0){
-        return 0;
-    }else
-        return 1;
+        if(flag==0){
+            return 0;
+        }else
+            return 1;
 
     }
+
+
 
 
 
