@@ -38,14 +38,13 @@ This is the repository for the course project in [CS F213: Object Oriented Progr
     - 10 cities (including one Home city), each with 1 airport having just one terminal
     - Only 5 airlines
     - During check-in, if baggage weight exceeds 25kgs, the extra charges (of Rs.100 per extra kg) is assumed to be paid directly by user via cash/card, etc. and not via account balance
-    - (yet to complete this section)
 
 ## Basic Modules
 
 - This [document](https://github.com/ASudu/Airline_Ticket_Management/blob/main/Problem_statement/Modules%20of%20the%20project.pdf) has a clear explanation of working and requirements of each of the modules
 
 
-## Guidelines
+## Guidelines for contributors
 
 **Main branch shall only contain approved changes, do not push directly to it!**
 
