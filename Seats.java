@@ -17,8 +17,11 @@ public class Seats implements Serializable {
     int seats_available = temp_flight.getFree_seats();
     String flightCode; // Can't use tem_flight.flight_code since it is public
 
-
-
+    // Default constructor
+    public Seats() {
+    }
+ 
+    // Parameterized constructor
     Seats(String flightCode)throws Exception{
 
         this.flightCode = flightCode;
@@ -63,6 +66,7 @@ public class Seats implements Serializable {
     }
 
 
+    // Get flight details from flight.txt for given flight code
     String[] get_flight_details(String code) throws IOException{
         String[] temp = null;
 
@@ -80,7 +84,7 @@ public class Seats implements Serializable {
     }
 
 
-
+    // When seat needs to be booked
     String book_seat(Customer c, String name)throws Exception{
 
         
@@ -165,6 +169,7 @@ public class Seats implements Serializable {
 
             }
             
+            // Customer has no preference
             else if(read.equals("N")){
                 for(int i=0;i<30;i++){
                     for(int j=0;j<6;j++){
@@ -199,6 +204,7 @@ public class Seats implements Serializable {
     }
 
 
+    // Updates entry (i,j) in seat matrix
     void update_seats(int i,int j){
 
         this.seat_matrix[i][j] = 1;
@@ -206,6 +212,7 @@ public class Seats implements Serializable {
     }
 
 
+    // Checks if seats are available in given flight
     boolean check_seats_available(){
 
         boolean seat_available;
@@ -217,6 +224,7 @@ public class Seats implements Serializable {
     }
 
 
+    // Checks if a specific seat in flight is vacant
     boolean check_seat_vacant(int i,int j){
 
         boolean vacant;
@@ -228,6 +236,7 @@ public class Seats implements Serializable {
     }
 
 
+    // Formats seat number and assigns
     String seat_index(Integer i,int j){
         // String col = (j>=0&&j<6)? String.valueOf((char)(j+65)) : null;
         String[] list_char = {"A", "B", "C", "D", "E", "F"};
@@ -239,6 +248,7 @@ public class Seats implements Serializable {
     }
 
 
+    // Assigns seat to the booking
     void assign_seat(String str){
 
         String[] read = new String[2];
@@ -251,6 +261,7 @@ public class Seats implements Serializable {
     }
 
 
+    // Called when seat is to be cancelled
     void cancel_seat(Customer c, String name,String seat) throws Exception{
         // int found =0;
         String[] read = new String[2];
@@ -270,6 +281,7 @@ public class Seats implements Serializable {
     }
 
 
+    // Adds entry of user with username and passenger name
     void update_flightDB(Customer c,int i, int j,String code, String name, String choice)throws Exception{
 
         try{
@@ -375,6 +387,7 @@ public class Seats implements Serializable {
     }
 
 
+    // Check if any bookings are done for a given flight
     static boolean code_exists(String code)throws Exception{
         Path path = Paths.get(current_dir + "\\flight_seats.txt");
     

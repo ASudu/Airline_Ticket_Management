@@ -24,6 +24,7 @@ public class Login {
         BufferedReader br1 = new BufferedReader(fr);
         String str;
         int count = 0; // flag variable that indicate if login successful or not
+
         while ((str = br1.readLine()) != null) {
 
             // The file is comma separated and has 4 fields username, psswd, name, balance
@@ -52,13 +53,12 @@ public class Login {
 
         br1.close();  // Close reader object
 
-        // Login successful
+        // Login successful (username and password matched)
         if (count == 2) {
 
             System.out.println("Login Successful!");
 
-            Customer active = new Customer(words[2], words[0], words[1], words[2] + "@gmail.com");
-//            System.out.println(words[3]);//current active customer
+            Customer active = new Customer(words[2], words[0], words[1]);
             active.update_balance(words[0], words[1], Integer.parseInt(words[3]), "add");
             log_file.append(active,"Logged in successfully");
             return active;
@@ -66,7 +66,7 @@ public class Login {
 
         }
 
-        // Login failed
+        // Login failed (password did not match)
         else if(count == 1){
 
             log_file.append("Login failed");
@@ -84,7 +84,7 @@ public class Login {
             }while(!ch.equals("C") && !ch.equals("E"));
         }
 
-        // User doesn't exist
+        // User doesn't exist (username did not match)
         else{
             System.out.println("User doesn't exist! Please Sign Up.");
             log_file.append("Login failed_User doesn't exist");
@@ -95,6 +95,7 @@ public class Login {
         return new Customer();
     }
 
+    // Log in function for staffs
     public static Staff sLOG_IN() throws Exception {
 
 
@@ -138,19 +139,18 @@ public class Login {
 
         br1.close();  // Close reader object
 
-        // Login successful
+        // Login successful (username and password matched)
         if (count == 2) {
 
             System.out.println("Login Successful!");
 
             Staff active = new Staff(words[0], words[1], words[2], words[3],words[4],words[5]);
-//            System.out.println(words[3]);//current active customer
 
             log_file.append(active,"Logged in successfully");
             return active;
 
 
-        } // Login failed
+        } // Login failed (password did not match)
         else if(count ==1){
             System.out.println("Login Failed!.....");
             log_file.append("Login failed");
@@ -164,6 +164,7 @@ public class Login {
         }
 
 
+        // Staff doesn't exist (username did not match)
         else {
             System.out.println("User doesn't exist! Please Sign Up.");
             log_file.append("Login failed_User doesn't exist");
@@ -176,7 +177,7 @@ public class Login {
 
 
     //----------------------------------------------------------------------------------------------------------------//
-    // Or you are a new staff/customer just set up your details
+    // Or you are a new staff/customer just set up your details (String parameter takes "Customer" or "Staff")
     public static void SIGN_UP(String str) throws Exception {
 
         System.out.println("Set up your account");
@@ -196,7 +197,7 @@ public class Login {
             String p = String.valueOf(cnsl.readPassword("Confirm password : "));
 
             if(p.equals(read[2])) {
-                Customer c_new = new Customer(read[0], read[1], read[2], read[1] + "@gmail.com");
+                Customer c_new = new Customer(read[0], read[1], read[2]);
 
                 // Integer balance;
                 String read_int = cnsl.readLine("Enter amount of money would you like to set up for the account in Rs. : ");
@@ -217,6 +218,8 @@ public class Login {
             }
 
         }
+
+        // If username is unique
         else if(str.equals("Staff") && unique_user(read[1],str)){
             read[2] = String.valueOf(cnsl.readPassword("Enter password : "));  // Returns char array which is converted to string
             String p = String.valueOf(cnsl.readPassword("Confirm password : "));
@@ -268,9 +271,7 @@ public class Login {
         // login staff_database : username, password, Staff name, airline, ID
         File login_staffDB = new File(current_dir + "\\login_staffDB.txt");
 
-        // BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        // Commented above line since the local var br wasn't used an only the class br declared at start was used
-
+        // Check username exists for Customer
         if(object.equals("Customer")){
 
             FileReader fr = new FileReader(login_customerDB);
@@ -292,6 +293,8 @@ public class Login {
             if (count != 0) return false;
             else return true;
         }
+
+        // Check username exists for Staff
         else if(object.equals("Staff")){
             FileReader fr = new FileReader(login_staffDB);
             BufferedReader br1 = new BufferedReader(fr);
@@ -312,6 +315,7 @@ public class Login {
             if (count != 0) return false;
             else return true;
         }
+        
         else return false;
     }
 

@@ -16,7 +16,6 @@ public class Flight{
     private String flight_code;  // read only
     private String Airline;  // read only
     private String time; // read adnd write (by staff only) format: HHMM(24 hrs)
-    // private HashSet<Customer>  customers_booked; // read and write
     private int customers_booked;
     private int free_seats; // read only
     private String flight_status; //  read and write ; true if functional else false
@@ -25,7 +24,7 @@ public class Flight{
     // Default constructor
     public Flight() {
 
-        // this.from = City.home_city; // Implement City class
+        this.from = City.Home_city;
         this.customers_booked = 0;
         this.free_seats = total_seats;
         this.flight_status = "true";
@@ -42,91 +41,98 @@ public class Flight{
         this.Airline = Airline;
         this.time = time;
         this.customers_booked = 0;
-        this.free_seats = total_seats;
+        this.free_seats = total_seats - this.customers_booked;
         this.flight_status = "true";
     }
 
 
     //--------------------------------------------Getters and setters---------------------------------------------//
+    // Get total seats in a flight
     public int getTotal_seats() {
         return this.total_seats;
     }
 
-
+    // Get the city from which this flight object travels
     public String getFrom() {
         return this.from;
     }
 
+    // Set the city from which this flight object travels
     public void setFrom(String from) {
         this.from = from;
     }
 
+    // Get the city to which this flight object travels
     public String getTo() {
         return this.to;
     }
 
+    // Set the city to which this flight object travels
     public void setTo(String to) {
         this.to = to;
     }
 
+    // Get the flight fare
     public int getFare() {
         return this.fare;
     }
+
+    // Set Airline if and only the staff is sales head of that airline
     public void setAirline(Staff s){
-        if(s.designation.equals("Sales Head")){
+        if(this.Airline.equals(s.Airline) && s.designation.equals("Sales Head")){
             this.Airline = s.Airline;
         }
     }
+
+    // Update flight fare
     public void update_Fare(int fare) {
         this.fare = fare;
     }
 
+    // Get flight code
     public String getFlight_code() {
         return this.flight_code;
     }
 
+    // Get airline name of the current flight object
     public String getAirline() {
         return this.Airline;
     }
 
+    // Get the number of customers booked
     public int getCustomers_booked() {
         return this.customers_booked;
     }
 
+    // Update number of customers booked when booking and cancellation
     public void setCustomers_booked(int booked) {
         this.customers_booked = booked;
         free_seats = free_seats - booked;
     }
 
+    // Get time of travel of the flight
     public String get_time() {
         return this.time;
     }
 
+    // Update time of travrl of the flight
     public void set_time(String time) {
         this.time = time;
     }
 
-    // public void update_Customers_booked(HashSet<Customer> customers_booked) {
-    //     this.customers_booked = customers_booked;
-    // }
-
-    // public void update_Customers_booked(Customer c) {
-    //     this.customers_booked.add(c);
-    // }
-
+    // Get number of free seats
     public int getFree_seats() {
         return this.free_seats;
     }
 
+    // Get flight status (functional or not)
     public String getFlight_status() {
         return this.flight_status;
     }
 
-    // public void setFlight_status(boolean flight_status) {
-    //     this.flight_status = flight_status;
-    // }
     //------------------------------------------------------------------------------------------------------------//
 
+    // Updates the value of the fields in flighs.txt
     public void update_flights(String airline, String code, String from, String to, String fare, String free_seats, String time,String status) throws Exception{
 
         // First find the flight by flight_code :(unique identity)

@@ -5,12 +5,8 @@ public class Main {
     static Console cnsl = System.console();
 
 
+    // Function to re-direct users to main page or quit
     public static void go_to_login_page()throws Exception{
-
-        // // Clears terminal
-        // System.out.print("\033[H\033[2J");
-        // System.out.flush();
-
 
         String[] arg1 = new String[2];
         String read = "";
@@ -42,6 +38,7 @@ public class Main {
         System.out.print("\033[H\033[2J");
         System.out.flush();
 
+        // Start point of the execution
         System.out.println("*********************************************************************************");
         System.out.println("WELCOME TO AIRLINE RESERVATION SYSTEM !\n");
         System.out.println("Enter one of the following: ");
@@ -119,6 +116,7 @@ public class Main {
 
     }
 
+    // Called when login is successful and when redirect bak when error in user input
     public static void Succesful_login(Customer c)throws Exception{
 
         // Clears terminal
@@ -221,6 +219,8 @@ public class Main {
         }while(!read1.equals("C") && !read1.equals("U") && !read1.equals("B") && !read1.equals("V") && !read1.equals("E") && !read1.equals("Q"));
 
     }
+
+    // Called when login is successful and when redirect bak when error in staff input
     public static void Staff_Login(Staff s)throws Exception{
 
         // Clears terminal

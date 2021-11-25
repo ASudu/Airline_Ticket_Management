@@ -5,9 +5,16 @@ import java.util.*;
 public class BoardingPass{
 
     String booking_name; // The username under which booking was done
-    String flight_code;
+    String flight_code; // The flight code of the flight in which user has booked
+
     static String current_dir = System.getProperty("user.dir");
 
+
+    // Default constructor
+    public BoardingPass() {
+    }
+
+    // Parameterized constructor
     BoardingPass(String n,String c){
 
         this.booking_name = n;
@@ -15,6 +22,7 @@ public class BoardingPass{
     }
 
 
+    // To display boarding pass (if booking exists)
     public int display_boarding_pass()throws Exception{
 
         Path path = Paths.get(current_dir + "\\flight_seats.txt");
@@ -42,7 +50,7 @@ public class BoardingPass{
             }
         }
 
-        // To get airport code and terminal
+        // To get airport code
         City c_from = new City();
         City c_to = new City();
         c_from  = c_from.assign_city(from);
@@ -67,7 +75,7 @@ public class BoardingPass{
 
                             flag  = 1;
 
-
+                            // Display the boarding pass
                             System.out.println("***********************************************************************");
                             System.out.println("THANK YOU FOR FLYING WITH " + airline + "!!");
                             System.out.println("   FLIGHT CODE: " + this.flight_code);
