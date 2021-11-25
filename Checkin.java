@@ -6,21 +6,24 @@ import java.util.regex.Pattern;
 
 public class Checkin{
 
-    static Console cnsl = System.console();
+    //static Console cnsl = System.console();
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static String current_dir = System.getProperty("user.dir");
 
     public static int checkin(String user_name, String flight_code) throws Exception{
+        System.out.println("Enter verification number you entered while booking: ");
 
-        int verification_no = Integer.parseInt(cnsl.readLine("Enter verification number you entered while booking: ").strip());
+
 
         try{
-            
+            String verification_no = br.readLine().strip();
+
             Path path = Paths.get(current_dir + "\\flight_seats.txt");
             List<String> fileContent = new ArrayList<>(Files.readAllLines(path, StandardCharsets.UTF_8));
-            
+
             // Reads file to check verification number
             for (int i = 0; i < fileContent.size(); i++) {
-                
+
                 String[] temp = fileContent.get(i).split("@");
 
                 // Flight code matched
@@ -31,16 +34,17 @@ public class Checkin{
                     for(String s: users){
 
                         String username = s.split(":")[1].split(Pattern.quote("$"))[0];
-                        int verification = Integer.parseInt(s.split(":")[1].split("\\+")[0]);
+                        String verification = s.split(":")[1].split("[+]")[1];
 
                         // Username found
                         if(username.equals(user_name)){
 
                             // Verification successful
-                            if(verification == verification_no){
+                            if(verification.equals(verification_no)){
 
-                                int baggage_weight = Integer.parseInt(cnsl.readLine("Enter baggage weight of customer " + user_name + ": ").strip());
-                                
+                                System.out.println("Enter baggage weight of customer " + user_name + ": ");
+                                int baggage_weight = Integer.parseInt(br.readLine().strip());
+
                                 return baggage_weight;
 
                             }
@@ -53,19 +57,27 @@ public class Checkin{
 
                         }
 
-                    }              
+                    }
 
                 }
             }
-            
+
 
         }
-        
+
         catch(Exception e){
-            e.printStackTrace();
+
+            System.out.println("Please be consistent with input format");
+            System.out.println("If you wish to continue, Press C to continue or E to exit");
+            String choice = br.readLine();
+            if(choice.equals("C")){
+                checkin(user_name,flight_code);
+            }else{
+                System.exit(0);
+            }
         }
 
         return -1;
-        
+
     }
 }
