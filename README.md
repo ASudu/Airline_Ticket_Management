@@ -1,11 +1,11 @@
-# Airline_Ticket_Management
+# Airline Ticket Management
 
-This is the repo for the course project in CS F213: Object Oriented Programming, Fall 2021.
+This is the repository for the course project in CS F213: Object Oriented Programming, Fall 2021.
 
 ## Authors
 
 | Name | ID |
-| --- | ----------- |
+|: --- :|: ----------- :|
 | A Sudarshan |2019B4A70744P |
 | Rajan Sahu | 2019B4A70572P|
 
@@ -32,7 +32,7 @@ This is the repo for the course project in CS F213: Object Oriented Programming,
 
 ## Important points while running the project
 
-- 
+- As mentioned in Project description
 
 ## Basic Modules
 ### Main Module
