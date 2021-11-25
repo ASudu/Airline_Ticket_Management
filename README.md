@@ -37,12 +37,13 @@ This is the repository for the course project in [CS F213: Object Oriented Progr
 - Other assuptions:
     - 10 cities (including one Home city), each with 1 airport having just one terminal
     - Only 5 airlines
+    - During check-in, if baggage weight exceeds 25kgs, the extra charges (of Rs.100 per extra kg) is assumed to be paid directly by user via cash/card, etc. and not via account balance
     - (yet to complete this section)
 
 ## Basic Modules
-### Main Module
 
-- Connects all submodules in the project and handles the call sequences based on user inputs
+- This document has a clear explanation of working and requirements of each of the modules
+
 
 ## Guidelines
 
