@@ -2,18 +2,22 @@ import java.io.*;
 
 public class Main {
 
-    static Console cnsl = System.console();
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 
-    // Function to re-direct users to main page or quit
     public static void go_to_login_page()throws Exception{
+
+        // Clears terminal
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
 
         String[] arg1 = new String[2];
         String read = "";
 
         do{
-
-            read = cnsl.readLine("Press \"M\" to go back to Login prompt or Press \"Q\" to quit: ").strip();
+            System.out.println("Press \"M\" to go back to Login prompt or Press \"Q\" to quit: ");
+            read = br.readLine().strip();
             if(read.equals("M")){
 
                 main(arg1);
@@ -38,7 +42,6 @@ public class Main {
         System.out.print("\033[H\033[2J");
         System.out.flush();
 
-        // Start point of the execution
         System.out.println("*********************************************************************************");
         System.out.println("WELCOME TO AIRLINE RESERVATION SYSTEM !\n");
         System.out.println("Enter one of the following: ");
@@ -47,8 +50,8 @@ public class Main {
 
 
         do{
-
-            read = cnsl.readLine("Your choice: ").strip();
+            System.out.println("Your choice: ");
+            read = br.readLine().strip();
             if(read.equals("L")){
 
                 // Clears terminal
@@ -57,24 +60,31 @@ public class Main {
 
 
                 System.out.println("*******************   LOG IN    *******************");
-                System.out.println("Press \"C\" to Login from a  customer account  or Press \"S\" to Login from a staff account");
-                String choice = cnsl.readLine("Your choice: ");
-                
-                do{
-                    if(choice.equals("C")) {
+                System.out.println("Press C to Login from a  customer account  or Press S to Login from a staff account");
+                String choice = br.readLine();
+                if(choice.equals("C")) {
+                    Customer c = Login.LOG_IN();
+                    if(c.Name==null){Main.go_to_login_page();}
+                    Succesful_login(c);
 
-                        Customer c = Login.LOG_IN();
-                        Succesful_login(c);
 
-                    }else if(choice.equals("S")){
-                        Staff s = Login.sLOG_IN();
-                        Staff_Login(s);
+                    // Clears terminal
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
 
-                    }else{
-                        System.out.println("Please enter a valid input");
-                        Main.main(args);
-                    }
-                }while(!choice.equals("C") && !choice.equals("S"));
+                    System.out.println("**********************   DASHBOARD    **********************");
+                }else if(choice.equals("S")){
+                    Staff s = Login.sLOG_IN();
+                    if(s.Name==null){Main.go_to_login_page();}
+                    Staff_Login(s);
+
+                    // Clears terminal
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                }else{
+                    System.out.println("Please enter a valid input");
+                    Main.main(args);
+                }
 
 
             }
@@ -85,9 +95,8 @@ public class Main {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
 
-                System.out.println("*******************   SIGN UP    *******************");
                 System.out.println("Press C to sign up as a customer or Press S to sign up as a staff account");
-                String choice = cnsl.readLine("Your choice: ");
+                String choice = br.readLine();
 
                 if(choice.equals("C")){
 
@@ -116,15 +125,8 @@ public class Main {
 
     }
 
-    // Called when login is successful and when redirect bak when error in user input
     public static void Succesful_login(Customer c)throws Exception{
 
-        // Clears terminal
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-
-        System.out.println("**********************   DASHBOARD    **********************");
-        System.out.println("Login successful!");
         System.out.println("Welcome Mr./Mrs."+c.Name);
         System.out.println("------------------------------------------------");
         System.out.println("Enter one of the following: ");
@@ -132,7 +134,8 @@ public class Main {
         String read1 = "";
 
         do{
-            read1 = cnsl.readLine("Your choice: ").strip();
+            System.out.println("Your choice: ");
+            read1 = br.readLine().strip();
 
             if(read1.equals("C")){
 
@@ -144,8 +147,8 @@ public class Main {
                 String read2 = "";
 
                 do{
-
-                    read2 = cnsl.readLine("Enter: 1. \"L\" to login\n2. \"Q\" to quit");
+                    System.out.println("Enter: 1. \"L\" to login\n2. \"Q\" to quit");
+                    read2 = br.readLine();
                     if(read2.equals("L")){
 
                         // Clears terminal
@@ -154,11 +157,12 @@ public class Main {
 
                         System.out.println("*******************   LOG IN    *******************");
                         c = Login.LOG_IN();
+                        Succesful_login(c);
                     }
 
                     else if(read2.equals("Q")){
 
-                        System.out.println("Exitting.......");
+                        System.out.println("Exiting.......");
                         System.exit(0);
 
                     }
@@ -178,6 +182,7 @@ public class Main {
                 c.update_balance();
             }
 
+            // Yet to define fns
             else if(read1.equals("B")){
 
                 // Clears terminal
@@ -185,7 +190,7 @@ public class Main {
                 System.out.flush();
 
                 System.out.println("*********************   BOOKING    *********************");
-                c.do_booking();
+                c.do_booking(); // Yet to define
             }
 
             else if(read1.equals("V")){
@@ -195,7 +200,7 @@ public class Main {
                 System.out.flush();
 
                 System.out.println("*******************   VIEW TICKET    *******************");
-                c.view_ticket();
+                c.view_ticket();  // Yet to define
             }
 
             else if(read1.equals("E")){
@@ -205,7 +210,7 @@ public class Main {
                 System.out.flush();
 
                 System.out.println("******************   CANCEL TICKET    ******************");
-                c.cancel_ticket();
+                c.cancel_ticket();  // Yet to define
             }
 
             else if(read1.equals("Q")){
@@ -219,17 +224,8 @@ public class Main {
         }while(!read1.equals("C") && !read1.equals("U") && !read1.equals("B") && !read1.equals("V") && !read1.equals("E") && !read1.equals("Q"));
 
     }
-
-    // Called when login is successful and when redirect bak when error in staff input
     public static void Staff_Login(Staff s)throws Exception{
 
-        // Clears terminal
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-
-        System.out.println("**********************   DASHBOARD    **********************");
-        System.out.println("Login successful!");
-        
         System.out.println("Welcome Mr./Mrs."+s.Name);
         System.out.println("------------------------------------------------");
         System.out.println("Enter one of the following: ");
@@ -237,7 +233,8 @@ public class Main {
         String read1 = "";
 
         do{
-            read1 = cnsl.readLine("Your choice: ").strip();
+            System.out.println("Your choice: ");
+            read1 = br.readLine().strip();
 
             if(read1.equals("C")){
 
@@ -249,8 +246,9 @@ public class Main {
                 String read2 = "";
 
                 do{
+                    System.out.println("Enter: 1. \"L\" to login\n2. \"Q\" to quit");
 
-                    read2 = cnsl.readLine("Enter: 1. \"L\" to login\n2. \"Q\" to quit");
+                    read2 = br.readLine();
                     if(read2.equals("L")){
 
                         // Clears terminal
@@ -259,6 +257,7 @@ public class Main {
 
                         System.out.println("*******************   LOG IN    *******************");
                         s = Login.sLOG_IN();
+                        Main.Staff_Login(s);
                     }
 
                     else if(read2.equals("Q")){
